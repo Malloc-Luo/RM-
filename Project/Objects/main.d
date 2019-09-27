@@ -1,4 +1,5 @@
 .\objects\main.o: main.c
+.\objects\main.o: ..\Hardware\init.h
 .\objects\main.o: ..\System\sys\sys.h
 .\objects\main.o: ..\Project\stm32f10x.h
 .\objects\main.o: ..\Core\core_cm3.h
@@ -29,3 +30,8 @@
 .\objects\main.o: ..\Lib\inc\stm32f10x_usart.h
 .\objects\main.o: ..\Lib\inc\stm32f10x_wwdg.h
 .\objects\main.o: ..\Lib\inc\misc.h
+.\objects\main.o: ..\Hardware\motor.h
+.\objects\main.o: ..\Hardware\road.h
+.\objects\main.o: ..\System\usart\usart.h
+.\objects\main.o: D:\KeilMDK5\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\main.o: ..\System\delay\delay.h

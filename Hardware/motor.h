@@ -2,6 +2,8 @@
 #define __MOTOR_H
 #include "sys.h"
 
+#define Forward_Left_Speed0 TIM_SetCompare1(TIM2, 0)
+
 
 void Motor_Init(void);
 
