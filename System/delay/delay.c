@@ -1,6 +1,4 @@
 #include "delay.h"
-////////////////////////////////////////////////////////////////////////////////// 	 
-//如果需要使用OS,则包括下面的头文件即可.
 #if SYSTEM_SUPPORT_OS
 #include "includes.h"					//ucos 使用	  
 #endif
@@ -9,9 +7,8 @@ static u8  fac_us=0;							//us延时倍乘数
 static u16 fac_ms=0;							//ms延时倍乘数,在ucos下,代表每个节拍的ms数
 	
 	
-#if SYSTEM_SUPPORT_OS							//如果SYSTEM_SUPPORT_OS定义了,说明要支持OS了(不限于UCOS).
-//当delay_us/delay_ms需要支持OS的时候需要三个与OS相关的宏定义和函数来支持
-//首先是3个宏定义:
+#if SYSTEM_SUPPORT_OS
+
 //    delay_osrunning:用于表示OS当前是否正在运行,以决定是否可以使用相关函数
 //delay_ostickspersec:用于表示OS设定的时钟节拍,delay_init将根据这个参数来初始哈systick
 // delay_osintnesting:用于表示OS中断嵌套级别,因为中断里面不可以调度,delay_ms使用该参数来决定如何运行
@@ -184,43 +181,3 @@ void delay_ms(u16 nms)
 	SysTick->VAL =0X00;       					//清空计数器	  	    
 } 
 #endif 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

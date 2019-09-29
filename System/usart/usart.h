@@ -1,15 +1,26 @@
 #ifndef __USART_H
 #define __USART_H
-#include "stdio.h"	
-#include "sys.h" 
+#include "init.h"	 
 
-#define USART_REC_LEN  			200  	//定义最大接收字节数 200
-#define EN_USART1_RX 			   1		//使能（1）/禁止（0）串口1接收
-	  	
-extern u8  USART_RX_BUF[USART_REC_LEN]; //接收缓冲,最大USART_REC_LEN个字节.末字节为换行符 
-extern u16 USART_RX_STA;         	 	    //接收状态标记	
-                                        //如果想串口中断接收，请不要注释以下宏定义
+/*usart1 command*/
+
+#define SIGNAL1 0x01   //arduino开始对数据PID，并将数据发回stm32
+#define SIGNAL2 0x02
+#define SIGNAL3 0x03
+#define SIGNAL4 0x04
+#define SIGNAL5 0x05
+#define WRONG   0xfa            //Send data error
+#define DONE  0xff            //complete a action
+
+extern u8 USART1_RX_Data;       //usart1 recived datas
+extern u8 USART1_RX_LastData;
+extern u8 TX_Status;            //success 1
+extern u8 RX_Status;            //fail    0
+
 void uart_init(u32 bound);
+
+void Send_to_Arduino(u8 );
+
 #endif
 
 

@@ -30,4 +30,11 @@
 .\objects\usart.o: ..\Lib\inc\stm32f10x_wwdg.h
 .\objects\usart.o: ..\Lib\inc\misc.h
 .\objects\usart.o: ..\System\usart\usart.h
+.\objects\usart.o: ..\Hardware\init.h
 .\objects\usart.o: D:\KeilMDK5\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\usart.o: ..\Hardware\motor.h
+.\objects\usart.o: ..\Hardware\road.h
+.\objects\usart.o: ..\System\usart\usart.h
+.\objects\usart.o: ..\System\delay\delay.h
+.\objects\usart.o: ..\Hardware\bluetooth.h
+.\objects\usart.o: ..\Hardware\init.h

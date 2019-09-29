@@ -22,19 +22,26 @@ Dialog DLL:      TCM.DLL V1.14.4.0
  
 <h2>Project:</h2>
 C:\Users\24230\Desktop\RM校内赛\RM\Project\RmCar.uvprojx
-Project File Date:  09/23/2019
+Project File Date:  09/28/2019
 
 <h2>Output:</h2>
 Build target 'Car'
 compiling main.c...
-compiling motor.c...
-..\Hardware\motor.c(45): error:  #29: expected an expression
-        oc.TIM_OCMode = ;
-..\Hardware\motor.c(15): warning:  #550-D: variable "oc" was set but never used
-        TIM_OCInitTypeDef oc;
-..\Hardware\motor.c: 1 warning, 1 error
+main.c(10): warning:  #111-D: statement is unreachable
+        Action1 = 0;
+main.c: 1 warning, 0 errors
 compiling init.c...
-".\Objects\RmCar.axf" - 1 Error(s), 1 Warning(s).
+compiling bluetooth.c...
+..\Hardware\bluetooth.c(49): warning:  #186-D: pointless comparison of unsigned integer with zero
+                if(Bluetooth_RX_Data>=0x00 && Bluetooth_RX_Data<=0x0f)
+..\Hardware\bluetooth.c(56): error:  #65: expected a ";"
+                                        Action1 = 1;
+..\Hardware\bluetooth.c: 1 warning, 1 error
+compiling usart.c...
+..\System\usart\usart.c(74): warning:  #186-D: pointless comparison of unsigned integer with zero
+                if(USART1_RX_Data>=0x00 && USART1_RX_Data<=0x0f)
+..\System\usart\usart.c: 1 warning, 0 errors
+".\Objects\RmCar.axf" - 1 Error(s), 3 Warning(s).
 
 <h2>Collection of Component include folders:</h2>
   C:\Users\24230\Desktop\RM校内赛\RM\Project\RTE
