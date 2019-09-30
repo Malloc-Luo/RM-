@@ -46,7 +46,7 @@ void USART2_IRQHandler(void)
 	{
 		Bluetooth_RX_Data = USART_ReceiveData(USART2);
 		
-		if(Bluetooth_RX_Data>=0x00 && Bluetooth_RX_Data<=0x0f)
+		if(Bluetooth_RX_Data<=0x0f)
 		{
 			switch(Bluetooth_RX_Data)
 			{

@@ -23,6 +23,8 @@
 ".\objects\road.o"
 ".\objects\init.o"
 ".\objects\bluetooth.o"
+".\objects\led.o"
+".\objects\valve.o"
 ".\objects\core_cm3.o"
 ".\objects\startup_stm32f10x_hd.o"
 ".\objects\delay.o"

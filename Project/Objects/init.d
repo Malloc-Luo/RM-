@@ -32,8 +32,9 @@
 .\objects\init.o: ..\Lib\inc\misc.h
 .\objects\init.o: D:\KeilMDK5\ARM\ARMCC\Bin\..\include\stdio.h
 .\objects\init.o: ..\Hardware\motor.h
+.\objects\init.o: ..\Hardware\init.h
 .\objects\init.o: ..\Hardware\road.h
 .\objects\init.o: ..\System\usart\usart.h
-.\objects\init.o: ..\Hardware\init.h
 .\objects\init.o: ..\System\delay\delay.h
 .\objects\init.o: ..\Hardware\bluetooth.h
+.\objects\init.o: ..\Hardware\valve.h

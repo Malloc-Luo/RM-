@@ -1,5 +1,6 @@
 .\objects\motor.o: ..\Hardware\motor.c
 .\objects\motor.o: ..\Hardware\motor.h
+.\objects\motor.o: ..\Hardware\init.h
 .\objects\motor.o: ..\System\sys\sys.h
 .\objects\motor.o: ..\Project\stm32f10x.h
 .\objects\motor.o: ..\Core\core_cm3.h
@@ -30,3 +31,11 @@
 .\objects\motor.o: ..\Lib\inc\stm32f10x_usart.h
 .\objects\motor.o: ..\Lib\inc\stm32f10x_wwdg.h
 .\objects\motor.o: ..\Lib\inc\misc.h
+.\objects\motor.o: D:\KeilMDK5\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\motor.o: ..\Hardware\motor.h
+.\objects\motor.o: ..\Hardware\road.h
+.\objects\motor.o: ..\System\usart\usart.h
+.\objects\motor.o: ..\Hardware\init.h
+.\objects\motor.o: ..\System\delay\delay.h
+.\objects\motor.o: ..\Hardware\bluetooth.h
+.\objects\motor.o: ..\Hardware\valve.h

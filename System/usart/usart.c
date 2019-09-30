@@ -71,7 +71,7 @@ void USART1_IRQHandler(void)
 	{
 		USART1_RX_Data = USART_ReceiveData(USART1);
 		
-		if(USART1_RX_Data>=0x00 && USART1_RX_Data<=0x0f)
+		if(USART1_RX_Data<=0x0f)
 		{
 			switch(USART1_RX_Data)
 			{

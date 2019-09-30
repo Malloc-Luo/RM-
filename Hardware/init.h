@@ -7,6 +7,8 @@
 #include "usart.h"
 #include "delay.h"
 #include "bluetooth.h"
+#include "valve.h"
+
 
 /*u8 Game_Staus 
 	比赛进程标志

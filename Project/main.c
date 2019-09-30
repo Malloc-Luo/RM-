@@ -1,11 +1,12 @@
 #include "init.h"
 
-
 int main(void)
-{		
+{
+  	
 	Init_All();
-	
-	while(1);
+	while(1)
+	{
+	}
 	
  	
 } 

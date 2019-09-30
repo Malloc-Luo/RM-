@@ -11,4 +11,5 @@ void Init_All(void)
 	uart_init(9600);
 	Bluetooth_Init(9600);
 	Road_Init();
+	Valve_Init();
 }
