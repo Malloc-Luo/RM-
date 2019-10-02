@@ -22,7 +22,7 @@ void Bluetooth_Init(u32 bound)
 	
 	nvic.NVIC_IRQChannel = USART2_IRQn;
 	nvic.NVIC_IRQChannelPreemptionPriority = 0x03;
-	nvic.NVIC_IRQChannelSubPriority = 0x02;
+	nvic.NVIC_IRQChannelSubPriority = 0x00;
 	nvic.NVIC_IRQChannelCmd = ENABLE;
 	NVIC_Init(&nvic);
 	

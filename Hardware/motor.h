@@ -40,13 +40,17 @@ void ForRight(SPEED , DIRECTION);
 void BackRight(SPEED , DIRECTION);
 void BackLeft(SPEED , DIRECTION);
 
-void PID_Adjust_Speed(SPEED speed);
+/*PID控制阶段调速*/
+void PID_Adjust_Speed(SPEED ); 
 
-void ROAD_Adjust_Speed(SPEED , DIRECTION);
+/*巡线阶段调速*/
+void ROAD_Adjust_Speed(SPEED , DIRECTION );
 
+/*原地旋转90° 顺时针 or 逆时针*/
 void SPAN_90Degree(DIRECTION );
 
-
+/*侧向移动，ACTION4阶段*/
+void TRAN_Move(SPEED , DIRECTION );
 
 #endif
 

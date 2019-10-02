@@ -3,6 +3,7 @@
 
 #include<Servo.h>
 #include<NewPing.h>
+#include<MsTimer2.h>
 
 Servo servo1;
 Servo servo2;
@@ -13,16 +14,13 @@ Servo servo2;
 #define Trig 3
 #define Echo 2
 
-#define LED1 14
-#define LED2 15
-#define LED3 16
-#define LED4 17
-
 int pos;
 float distance;
 
-/*-------------------------------------------------------------------------------------*/
-/**/
+/*------------*/
+/*PID 参数结构体*/
+/*PID 初始化函数*/
+/*PID 处理函数  */
 struct Pid
 {
   float Ki;
@@ -86,10 +84,13 @@ int PID_Control(float setvalue, float actualvalue, PID * pid)
   return (int)(pid->Actualvalue);
 }
 
-//--------------------------------------------------------------------------------------------------------
+/*定时器中断服务函数，返回超声波模块测距值*/
 
-//distance=pulseIn(3,HIGH)/57.88;
-//servo1.write(pos)
+void TIM_IRQnHandler(void)
+{
+  distance = pulseIn(3, HIGH)/57.88;
+}
+
 
 void setup() 
 {
@@ -98,10 +99,18 @@ void setup()
   Serial.begin(9600);
   servo1.attach(Pin_servo1);
   servo2.attach(Pin_servo2);
+  MsTimer2::set(10, TIM_IRQnHandler);
+  MsTimer2::start();
+  
 }
 
 void loop() 
 {
+  if(Serial.available() > 0)
+  {
+    
+   
+  }
   servo1.write(pos);
   
 }

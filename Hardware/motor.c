@@ -1,7 +1,6 @@
 #include "motor.h"
 
-//----------------------------------
-/*TIM2_CH1  PA.0 TIM_SetCompare1(TIM2, value)
+/*TIM2_CH1  PA.0
   TIM2_CH2  PA.1
 	TIM3_CH1  PA.6
 	TIM3_CH2  PA.7
@@ -118,8 +117,6 @@ void BackRight(SPEED speed, DIRECTION direction)
 	}
 }
 
-
-
 /*在PID调整距离阶段使用*/
 /*这里面当speed > 0 小车反向运动
           否则，小车正向运动*/
@@ -155,6 +152,10 @@ void PID_Adjust_Speed(SPEED speed)
 	}
 }
 
+/*  巡线过程中速度调整函数  */
+/*有所需速度大小和方向两个参数*/
+/*DIRECTION 参见宏定义 - RIGHT - - LEFT-*/
+
 void ROAD_Adjust_Speed(SPEED speed, DIRECTION direction)
 {
 	if(direction)
@@ -173,17 +174,54 @@ void ROAD_Adjust_Speed(SPEED speed, DIRECTION direction)
 	}
 }
 
+/*原地旋转90度*/
+/*DIRECTION 参见宏定义 - CLOCKWISE - - ANTICLOCKWISE - */
+
 void SPAN_90Degree(DIRECTION direction)
 {
-	
-	
+	if(CLOCKWISE)
+	{
+		ForLeft(300, F);
+		BackLeft(300, F);
+		
+		ForRight(300, B);
+		BackRight(300, B);
+	}
+	else
+	{
+		ForLeft(300, B);
+		BackLeft(300, B);
+		
+		ForRight(300, F);
+		BackRight(300, F);
+	}
+	delay_ms(100);
 	
 }
 
+/*侧移*/
+/*SPEED  - SPEED0 - -->  - SPEED8 -*/
+/*DIRECTION  - F - - B -*/
 
-
-
-
+void TRAN_Move(SPEED speed, DIRECTION direction)
+{
+	if(LEFT)
+	{
+		ForLeft(speed, B);
+		BackLeft(speed, F);
+		
+		ForRight(speed, F);
+		BackRight(speed, B);
+	}
+	else
+	{
+		ForLeft(speed, F);
+		BackLeft(speed, B);
+		
+		ForRight(speed, B);
+		BackRight(speed, F);
+	}
+}
 
 
 

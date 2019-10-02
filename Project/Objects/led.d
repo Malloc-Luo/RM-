@@ -39,3 +39,4 @@
 .\objects\led.o: ..\System\delay\delay.h
 .\objects\led.o: ..\Hardware\bluetooth.h
 .\objects\led.o: ..\Hardware\valve.h
+.\objects\led.o: ..\Hardware\led.h

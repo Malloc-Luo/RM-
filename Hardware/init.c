@@ -12,4 +12,5 @@ void Init_All(void)
 	Bluetooth_Init(9600);
 	Road_Init();
 	Valve_Init();
+	LED_Init();
 }
