@@ -45,6 +45,32 @@ void USART2_IRQHandler(void)
 	if(USART_GetITStatus(USART2, USART_IT_RXNE) != RESET)
 	{
 		Bluetooth_RX_Data = USART_ReceiveData(USART2);
+		switch(Bluetooth_RX_Data)
+		{
+			case '0':
+				Road_Mode();
+			case '1':
+				TEST_P();
+				break;
+			case '2':
+				Motor_TRAN_Move(300, RIGHT);
+				break;
+			case '3':
+				Motor_SPAN_90Degree(300, CLOCKWISE);
+				break;
+			case '4':
+				Motor_ROAD_Speed(300, RIGHT, 150);	
+				break;
+			case '5':
+				Motor_ROAD_Speed(300, LEFT, 250);
+				break;
+			case '6':
+				Motor_PID_Speed(-300);
+				break;
+			default :
+				Motor_Pause();
+				break;
+		}
 		
 		if(Bluetooth_RX_Data<=0x0f)
 		{

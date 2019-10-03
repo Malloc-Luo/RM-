@@ -40,3 +40,4 @@
 .\objects\led.o: ..\Hardware\bluetooth.h
 .\objects\led.o: ..\Hardware\valve.h
 .\objects\led.o: ..\Hardware\led.h
+.\objects\led.o: ..\Project\stm32f10x_it.h

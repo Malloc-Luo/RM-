@@ -60,6 +60,22 @@ void Motor_Init(void)
 	TIM_Cmd(TIM4, ENABLE);
 }
 
+/*停止运动*/
+
+void Motor_Pause(void)
+{
+	For_Left_A(0);
+	For_Left_B(0);
+	
+	For_Right_A(0);
+	For_Right_B(0);
+	
+	Back_Left_A(0);
+	Back_Left_B(0);
+	
+	Back_Right_A(0);
+	Back_Right_B(0);
+}
 
 /*单独控置每一个轮*/
 /*direction  F 表示向前  B 表示向后*/
@@ -120,35 +136,21 @@ void BackRight(SPEED speed, DIRECTION direction)
 /*在PID调整距离阶段使用*/
 /*这里面当speed > 0 小车反向运动
           否则，小车正向运动*/
-void PID_Adjust_Speed(SPEED speed)
+void Motor_PID_Speed(SPEED speed)
 {
 	if(speed > 0)
 	{
-		TIM_SetCompare1(TIM2, 0);
-		TIM_SetCompare2(TIM2, speed);
-		
-		TIM_SetCompare1(TIM3, 0);
-		TIM_SetCompare2(TIM3, speed);
-		
-		TIM_SetCompare1(TIM4, 0);
-		TIM_SetCompare2(TIM4, speed);
-		
-		TIM_SetCompare3(TIM3, 0);
-		TIM_SetCompare4(TIM3, speed);
+		ForLeft(speed, F);
+		ForRight(speed, F);
+		BackLeft(speed, F);
+		BackRight(speed, F);
 	}
 	else
 	{
-		TIM_SetCompare1(TIM2, -speed);
-		TIM_SetCompare2(TIM2, 0);
-		
-		TIM_SetCompare1(TIM3, -speed);
-		TIM_SetCompare2(TIM3, 0);
-		
-		TIM_SetCompare1(TIM4, -speed);
-		TIM_SetCompare2(TIM4, 0);
-		
-		TIM_SetCompare3(TIM3, -speed);
-		TIM_SetCompare4(TIM3, 0);
+		ForLeft(-speed, B);
+		ForRight(-speed, B);
+		BackRight(-speed, B);
+		BackLeft(-speed, B);
 	}
 }
 
@@ -156,54 +158,59 @@ void PID_Adjust_Speed(SPEED speed)
 /*有所需速度大小和方向两个参数*/
 /*DIRECTION 参见宏定义 - RIGHT - - LEFT-*/
 
-void ROAD_Adjust_Speed(SPEED speed, DIRECTION direction)
+void Motor_ROAD_Speed(SPEED speed, DIRECTION direction, DELTA delta)
 {
-	if(direction)
+	if(direction == LEFT)
 	{
 		ForRight(speed, F);
-		ForLeft(speed-100, F);
-		BackRight(speed-50, F);
-		BackLeft(speed-150, F);
+		ForLeft(speed-delta, F);
+		BackRight(speed-delta/5, F);
+		BackLeft(speed-delta-50, F);
+	}
+	else if(direction == RIGHT)
+	{
+		ForRight(speed-delta, F);
+		ForLeft(speed, F);
+		BackRight(speed-delta/5, F);
+		BackLeft(speed-delta+80, F);
 	}
 	else
 	{
-		ForRight(speed-100, F);
-		ForLeft(speed, F);
-		BackRight(speed-150, F);
-		BackLeft(speed-50, F);
+		ForRight(speed-delta, F);
+		ForLeft(speed-delta, F);
+		BackLeft(speed-delta, F);
+		BackRight(speed-delta, F);
 	}
 }
 
 /*原地旋转90度*/
 /*DIRECTION 参见宏定义 - CLOCKWISE - - ANTICLOCKWISE - */
 
-void SPAN_90Degree(DIRECTION direction)
+void Motor_SPAN_90Degree(SPEED speed, DIRECTION direction)
 {
 	if(CLOCKWISE)
 	{
-		ForLeft(300, F);
-		BackLeft(300, F);
+		ForLeft(speed, F);
+		BackLeft(speed, F);
 		
-		ForRight(300, B);
-		BackRight(300, B);
+		ForRight(speed, B);
+		BackRight(speed, B);
 	}
 	else
 	{
-		ForLeft(300, B);
-		BackLeft(300, B);
+		ForLeft(speed, B);
+		BackLeft(speed, B);
 		
-		ForRight(300, F);
-		BackRight(300, F);
+		ForRight(speed, F);
+		BackRight(speed, F);
 	}
-	delay_ms(100);
-	
 }
 
 /*侧移*/
 /*SPEED  - SPEED0 - -->  - SPEED8 -*/
 /*DIRECTION  - F - - B -*/
 
-void TRAN_Move(SPEED speed, DIRECTION direction)
+void Motor_TRAN_Move(SPEED speed, DIRECTION direction)
 {
 	if(LEFT)
 	{
@@ -223,6 +230,16 @@ void TRAN_Move(SPEED speed, DIRECTION direction)
 	}
 }
 
+#if 1
 
+void TEST_P(void)
+{
+	ForLeft(300, F);
+	ForRight(300, F);
+	
+	BackLeft(300, F);
+	BackRight(300, F);
+}
 
+#endif
 

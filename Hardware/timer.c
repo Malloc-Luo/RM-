@@ -12,9 +12,4 @@ void TIMER_Init(u8 arr, u8 psc)
 	time.TIM_Period = arr;
 	time.TIM_Prescaler = psc;
 	TIM_TimeBaseInit(TIM5, &time);
-	
-	
-	
-	
-	
 }

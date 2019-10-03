@@ -34,9 +34,10 @@
 .\objects\motor.o: D:\KeilMDK5\ARM\ARMCC\Bin\..\include\stdio.h
 .\objects\motor.o: ..\Hardware\motor.h
 .\objects\motor.o: ..\Hardware\road.h
-.\objects\motor.o: ..\System\usart\usart.h
 .\objects\motor.o: ..\Hardware\init.h
+.\objects\motor.o: ..\System\usart\usart.h
 .\objects\motor.o: ..\System\delay\delay.h
 .\objects\motor.o: ..\Hardware\bluetooth.h
 .\objects\motor.o: ..\Hardware\valve.h
 .\objects\motor.o: ..\Hardware\led.h
+.\objects\motor.o: ..\Project\stm32f10x_it.h

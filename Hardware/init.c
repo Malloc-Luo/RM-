@@ -13,4 +13,5 @@ void Init_All(void)
 	Road_Init();
 	Valve_Init();
 	LED_Init();
+	SysTick_Config(SystemCoreClock/1000000);
 }

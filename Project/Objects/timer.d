@@ -40,3 +40,4 @@
 .\objects\timer.o: ..\Hardware\bluetooth.h
 .\objects\timer.o: ..\Hardware\valve.h
 .\objects\timer.o: ..\Hardware\led.h
+.\objects\timer.o: ..\Project\stm32f10x_it.h

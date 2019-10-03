@@ -4,6 +4,7 @@
 
 #define RIGHT 0
 #define LEFT  1
+#define STRAIGHT 2
 
 #define F 1
 #define B 0
@@ -32,6 +33,7 @@
 
 typedef int16_t SPEED;
 typedef int16_t DIRECTION;
+typedef int16_t DELTA;
 
 void Motor_Init(void);
 
@@ -41,16 +43,22 @@ void BackRight(SPEED , DIRECTION);
 void BackLeft(SPEED , DIRECTION);
 
 /*PID控制阶段调速*/
-void PID_Adjust_Speed(SPEED ); 
+void Motor_PID_Speed(SPEED ); 
 
 /*巡线阶段调速*/
-void ROAD_Adjust_Speed(SPEED , DIRECTION );
+void Motor_ROAD_Speed(SPEED , DIRECTION , DELTA );
 
 /*原地旋转90° 顺时针 or 逆时针*/
-void SPAN_90Degree(DIRECTION );
+void Motor_SPAN_90Degree(SPEED, DIRECTION );
 
 /*侧向移动，ACTION4阶段*/
-void TRAN_Move(SPEED , DIRECTION );
+void Motor_TRAN_Move(SPEED , DIRECTION );
+
+/*电机停止转动*/
+void Motor_Pause(void);
+
+/*测试程序*/
+void TEST_P(void);
 
 #endif
 
