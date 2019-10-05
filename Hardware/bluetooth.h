@@ -3,10 +3,15 @@
 #include "init.h"
 
 /*Command*/
-#define BEGIN 0x01
-#define PAUSE 0x00
-#define ROAD_MODE 0x03
-#define CONTROL_MODE 0x05
+#define BEGIN '1'
+#define PAUSE '9'
+#define ROAD_MODE '2'
+#define CONTROL_MODE '3'
+#define SPAN '4'
+#define BACK '5'
+#define FORWARD '6'
+#define TRAN_L '0'
+#define TRAN_R '8'
 
 /*usart2 TX PA.2
 				 RX PA.3

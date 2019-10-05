@@ -57,9 +57,6 @@ void Motor_TRAN_Move(SPEED , DIRECTION );
 /*电机停止转动*/
 void Motor_Pause(void);
 
-/*测试程序*/
-void TEST_P(void);
-
 #endif
 
 //==================EXPLAIN=====================

@@ -7,6 +7,7 @@ u8 USART1_RX_Data;
 u8 USART1_RX_LastData;
 u8 TX_Status = 0;
 u8 RX_Status = 0;
+u8 PID_CTRL = 0;
             
 struct __FILE 
 { 
@@ -68,38 +69,46 @@ void USART1_IRQHandler(void)
 	if(USART_GetITStatus(USART1, USART_IT_RXNE) != RESET)
 	{
 		USART1_RX_Data = USART_ReceiveData(USART1);
-		
-		if(USART1_RX_Data<=0x0f)
+/*-----------------ACTION1--------------------------*/		
+		if(GAME_STATUS == 0x03)
 		{
-			switch(USART1_RX_Data)
+			if(USART1_RX_Data == BEGINING)
+				PID_CTRL = ENABLE;
+			if(USART1_RX_Data == SIGNAL3)
 			{
-				
-				
+				Motor_Pause();
+				Send_to_Arduino(SIGNAL2);
+				PID_CTRL = DISABLE;
+			}
+			else if(USART1_RX_Data == SIGNAL4 && !PID_CTRL)
+			{
+				/*控制气缸的代码*/
+				Send_to_Arduino(SIGNAL5);
+			}
+			else if(USART1_RX_Data == DONE && !PID_CTRL)
+			{
+				GAME_STATUS = GAME_STATUS<<2 ;
+			}
+			if(PID_CTRL)
+			{
+				Set_Speed = (int16_t)USART_ReceiveData(USART1);
+				Motor_PID_Speed(Set_Speed * 2);
 			}
 	  }
-		else if(USART1_RX_Data == ERROR)
-			Send_to_Arduino(USART1_RX_LastData);
-		else if(USART1_RX_Data == DONE)
-			TX_Status = 1;
-		else
+/*--------------------ACTION2-------------------------*/		
+//		else if(GAME_STATUS == 0x0C)
+//		{
+//			Road_Mode();
+//		}
+/*--------------------ACTION3-------------------------*/
+		else if(GAME_STATUS == 0x30)
 		{
-			Send_to_Arduino(WRONG);
-			TX_Status = 0;
+			
 		}
-		
-		switch(GAME_STATUS)
+/*--------------------ACTION4-------------------------*/
+		else if(GAME_STATUS == 0xC0)
 		{
-			case 0x03:
-				Set_Speed = USART_ReceiveData(USART1);
-				break;
-			case 0x0C:
-				break;
-			case 0x30:
-				break;
-			case 0xC0:
-				break;
-			default :
-				break;
+			
 		}
 	}
 }

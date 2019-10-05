@@ -21,7 +21,7 @@ void Bluetooth_Init(u32 bound)
 	GPIO_Init(GPIOA, &gpio);
 	
 	nvic.NVIC_IRQChannel = USART2_IRQn;
-	nvic.NVIC_IRQChannelPreemptionPriority = 0x03;
+	nvic.NVIC_IRQChannelPreemptionPriority = 0x01;
 	nvic.NVIC_IRQChannelSubPriority = 0x00;
 	nvic.NVIC_IRQChannelCmd = ENABLE;
 	NVIC_Init(&nvic);
@@ -45,44 +45,34 @@ void USART2_IRQHandler(void)
 	if(USART_GetITStatus(USART2, USART_IT_RXNE) != RESET)
 	{
 		Bluetooth_RX_Data = USART_ReceiveData(USART2);
+		
 		switch(Bluetooth_RX_Data)
 		{
-			case '0':
-				Road_Mode();
-			case '1':
-				TEST_P();
+			case FORWARD:
+				Motor_PID_Speed(250);
 				break;
-			case '2':
+			case BACK:
+				Motor_PID_Speed(-250);
+				break;
+			case TRAN_R:
 				Motor_TRAN_Move(300, RIGHT);
 				break;
-			case '3':
-				Motor_SPAN_90Degree(300, CLOCKWISE);
+			case TRAN_L:
+				Motor_TRAN_Move(300, LEFT);
 				break;
-			case '4':
-				Motor_ROAD_Speed(300, RIGHT, 150);	
+			case SPAN:
+				Motor_SPAN_90Degree(280, CLOCKWISE);	
 				break;
-			case '5':
-				Motor_ROAD_Speed(300, LEFT, 250);
+			case BEGIN:
+				Send_to_Arduino(SIGNAL1);
+				GAME_STATUS = 0x03;
 				break;
-			case '6':
-				Motor_PID_Speed(-300);
+			case PAUSE:
+				Motor_Pause();
 				break;
 			default :
 				Motor_Pause();
 				break;
-		}
-		
-		if(Bluetooth_RX_Data<=0x0f)
-		{
-			switch(Bluetooth_RX_Data)
-			{
-				case BEGIN:
-					Send_to_Arduino(SIGNAL1);
-					GAME_STATUS = (GAME_STATUS<<2);
-					break;
-				default :
-					break;
-			}
 		}
 	}
 }

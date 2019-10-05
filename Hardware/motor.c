@@ -188,7 +188,7 @@ void Motor_ROAD_Speed(SPEED speed, DIRECTION direction, DELTA delta)
 
 void Motor_SPAN_90Degree(SPEED speed, DIRECTION direction)
 {
-	if(CLOCKWISE)
+	if(direction == CLOCKWISE)
 	{
 		ForLeft(speed, F);
 		BackLeft(speed, F);
@@ -212,7 +212,7 @@ void Motor_SPAN_90Degree(SPEED speed, DIRECTION direction)
 
 void Motor_TRAN_Move(SPEED speed, DIRECTION direction)
 {
-	if(LEFT)
+	if(direction == LEFT)
 	{
 		ForLeft(speed, B);
 		BackLeft(speed, F);
@@ -230,16 +230,4 @@ void Motor_TRAN_Move(SPEED speed, DIRECTION direction)
 	}
 }
 
-#if 1
-
-void TEST_P(void)
-{
-	ForLeft(300, F);
-	ForRight(300, F);
-	
-	BackLeft(300, F);
-	BackRight(300, F);
-}
-
-#endif
 
