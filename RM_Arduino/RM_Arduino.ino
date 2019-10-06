@@ -25,8 +25,12 @@ Servo servo2;
 #define DONE    (unsigned char)0xff 
 #define BEGINING (unsigned char)0x06   
 
+#define SERVOUP (unsigned char)0x0B
+#define SERVODOWN (unsigned char)0x0C
+
+
 #define Pin_servo1 9
-#define Pin_servo2 5
+#define Pin_servo2 10
 
 /*初始化超声波模块  distance 距离测量值*/
 #define Trig 12
@@ -42,7 +46,7 @@ float distance;
 #define Tp 0.001
 
 /*舵机旋转角度设定*/
-int SET_POS_1=90;
+int SET_POS_1=120;
 int SET_POS_2=0;
 
 /*------------*/
@@ -53,23 +57,21 @@ typedef float PID_Ki;
 typedef float PID_Kp;
 typedef float PID_Kd;
 typedef unsigned char u8;
-
-struct Pid
+typedef struct
 {
-  int Ki;
-  int Kp;
-  int Kd;
-  int Actualvalue;
-  int Setvalue;
-  int err;
-  int err_last;
-  int inite;
-  int umax;
-  int umin;
-};
-typedef struct Pid PID;
+  float Ki;
+  float Kp;
+  float Kd;
+  float Actualvalue;
+  float Setvalue;
+  float err;
+  float err_last;
+  float inite;
+  float umax;
+  float umin;
+} PID ;
 
-float LIMIT(int Limited, int umin, int umax)
+float LIMIT(float Limited, float umin, float umax)
 {
   return (Limited <= umax ? Limited : umax) >= umin ? (Limited <= umax ? Limited : umax): umin ;
 }
@@ -88,7 +90,7 @@ void PID_Init(PID_Kp p, PID_Ki i, PID_Kd d, PID * P)
   P->umin = P->Setvalue - 15;
 }
 
-int PID_Control(int setvalue, int actualvalue, PID * pid)
+float PID_Control(float setvalue, float actualvalue, PID * pid)
 {
   int incrementvalue;
   pid->Setvalue = setvalue;
@@ -100,7 +102,7 @@ int PID_Control(int setvalue, int actualvalue, PID * pid)
   pid->err_last = pid->err;
   pid->Actualvalue = incrementvalue;
   pid->Actualvalue = LIMIT(pid->Actualvalue, pid->umin, pid->umax);
-  return (signed short int)(pid->Actualvalue)*10;
+  return -(pid->Actualvalue)*6.0;
 }
 
 PID STM32Control;
@@ -112,14 +114,14 @@ int End;
 
 /*使能串口发送  ENABLE 开启串口发送  DISABLE 关闭*/
 int USE = DISABLE; 
+
 /*通过串口发送数据*/
-void Send_to_STM(unsigned char data)
+void Send_to_STM(int8_t data)
 {
   Serial.write(data);
 }
 
 /*SIGNAL_work*/
-
 void SIGNAL1_Work(void)
 {
   Send_to_STM(BEGINING);
@@ -129,11 +131,14 @@ void SIGNAL1_Work(void)
   {
      distance = sonar.ping_cm();
      delay(10);
-     TX_Data = (unsigned char)PID_Control(SET_DISTANCE, distance, &STM32Control);
+     TX_Data = (int8_t)(PID_Control(SET_DISTANCE, distance, &STM32Control)+0.5);
      if(USE)
         Send_to_STM(TX_Data);
-     if(abs(STM32Control.Setvalue - STM32Control.Actualvalue) <= 1)
+     if(abs(STM32Control.Setvalue - STM32Control.Actualvalue) <= 1.5)
+     {
+        USE = DISABLE;
         break;
+     }
   }
   Send_to_STM(SIGNAL3);
 }
@@ -155,25 +160,22 @@ void SIGNAL5_Work(void)
   Send_to_STM(DONE);
 }
 
-/*定时器中断服务函数，返回超声波模块测距值*/
-/*void TIM_IRQHandler(void)
+void SERVO_Up(void)
 {
-  distance = sonar.ping_cm();
-  delay(5);
-  TX_Data = (unsigned char)PID_Control(SET_DISTANCE, distance, &STM32Control);
-  if(USE)
-  {
-    Send_to_STM(TX_Data);  
-  }
+  servo1.write(90);
+  servo2.write(90);
 }
-*/
 
+void SERVO_Down(void)
+{
+  servo1.write(0);
+  servo2.write(0);
+}
 void setup() 
 {
   Serial.begin(9600);
   servo1.attach(Pin_servo1);
   servo2.attach(Pin_servo2);
- /* MsTimer2::set(10, TIM_IRQHandler);*/
   PID_Init(700, 0, 1, &STM32Control);
 }
 
@@ -189,10 +191,20 @@ void loop()
         SIGNAL1_Work();
         break;
       case SIGNAL2:
+        delay(500);
         SIGNAL2_Work();
         break;
       case SIGNAL5:
         SIGNAL5_Work();
+        delay(100);
+        break;
+      case SERVOUP:
+        SERVO_Up();
+        break;
+      case SERVODOWN:
+        SERVO_Down();
+        break;
+      default :
         break;
     }
   }

@@ -23,8 +23,6 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f10x_it.h" 
-
-
  
 void NMI_Handler(void)
 {
@@ -77,7 +75,41 @@ void PendSV_Handler(void)
  
 void SysTick_Handler(void)
 {
+	static u8 n = 0;
+	static u8 EN ;
 	
+	if(L1==WHITE && L2==WHITE && M0==BLACK && R2==WHITE && R1==WHITE)
+		Road.Action_Mode = Action_Mode_Straight;
+	else if(L1==WHITE && L2==WHITE && M0==BLACK && R2==BLACK && R1==WHITE)
+		Road.Action_Mode = Action_Mode_Left;
+	else if(L1==WHITE && L2==WHITE && R2==BLACK && R1==BLACK)
+		Road.Action_Mode = Action_Mode_Left_Badly;
+	else if(L1==WHITE && L2==BLACK && M0==BLACK && R2==WHITE && R1==WHITE)
+		Road.Action_Mode = Action_Mode_Right;
+	else if(L1==BLACK && L2==BLACK && R2==WHITE && R1==WHITE)
+		Road.Action_Mode = Action_Mode_Right_Badly;
+	else if(L1==BLACK && L2==BLACK && M0==BLACK && R2==BLACK && R1==BLACK)
+		EN = ENABLE;
+	else if(L1==WHITE && L2==WHITE && M0==WHITE && R2==WHITE && R1==WHITE)
+		Road.Action_Mode = Action_Mode_End;
+	if(EN && Road.Road_Status == Road_Status_ENABLE)
+	{
+		if(n++ >=5)
+			if((L1==WHITE || L2==WHITE) && (R2==WHITE || R1==WHITE))
+			{
+				Road.times++;
+				EN = DISABLE;
+				n = 0;
+				if(Road.times == 3)
+					Road.Action_Mode = Action_Mode_End;
+			}
+	}
+	if(Road.Road_Status==Road_Status_ENABLE && Road.times<3)
+	{
+		Road_Mode();
+	}
+	if(Road.times >=3 )
+		Motor_Pause();
 }
 
 /******************************************************************************/

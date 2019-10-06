@@ -29,3 +29,15 @@
 .\objects\stm32f10x_it.o: ..\Lib\inc\stm32f10x_usart.h
 .\objects\stm32f10x_it.o: ..\Lib\inc\stm32f10x_wwdg.h
 .\objects\stm32f10x_it.o: ..\Lib\inc\misc.h
+.\objects\stm32f10x_it.o: ..\Hardware\init.h
+.\objects\stm32f10x_it.o: ..\System\sys\sys.h
+.\objects\stm32f10x_it.o: D:\KeilMDK5\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\stm32f10x_it.o: ..\Hardware\motor.h
+.\objects\stm32f10x_it.o: ..\Hardware\init.h
+.\objects\stm32f10x_it.o: ..\Hardware\road.h
+.\objects\stm32f10x_it.o: ..\System\usart\usart.h
+.\objects\stm32f10x_it.o: ..\System\delay\delay.h
+.\objects\stm32f10x_it.o: ..\Hardware\bluetooth.h
+.\objects\stm32f10x_it.o: ..\Hardware\valve.h
+.\objects\stm32f10x_it.o: ..\Hardware\led.h
+.\objects\stm32f10x_it.o: ..\Project\stm32f10x_it.h

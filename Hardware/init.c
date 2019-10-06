@@ -6,6 +6,7 @@ int16_t Set_Speed;
 
 void Init_All(void)
 {
+	
 	GAME_STATUS = 0x03;
 	Motor_Init();
 	uart_init(9600);
@@ -13,5 +14,8 @@ void Init_All(void)
 	Road_Init();
 	Valve_Init();
 	LED_Init();
-	SysTick_Config(SystemCoreClock/1000000);
+	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);
+	SysTick_Config(SystemCoreClock/200);
+	SysTick_CLKSourceConfig(SysTick_CLKSource_HCLK);
+	Motor_Pause();
 }

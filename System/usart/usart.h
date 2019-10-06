@@ -2,7 +2,7 @@
 #define __USART_H
 #include "init.h"	 
 
-/*usart1 command*/
+/*usart1 command (auto)*/
 
 #define SIGNAL1 0x01   //arduino开始对数据PID，并将数据发回stm32
 #define SIGNAL2 0x02
@@ -18,7 +18,12 @@
 #define DONE  0xff            //complete a action
 #define BEGINING 0x06
 
-extern u8 USART1_RX_Data;       //usart1 recived datas
+/*usart1 command (manual)*/
+
+#define SERVOUP 0x0B
+#define SERVODOWN 0x0C
+
+extern int16_t USART1_RX_Data;       //usart1 recived datas
 extern u8 USART1_RX_LastData;
 extern u8 TX_Status;            //success 1
 extern u8 RX_Status;            //fail    0

@@ -1,4 +1,8 @@
+/*  Ñ²Ïß³ÌÐò @ stm32f10x_it.c */
+
 #include "road.h"
+
+RoadMode Road;
 
 void Road_Init(void)
 {
@@ -13,51 +17,42 @@ void Road_Init(void)
 	
 	gpio.GPIO_Pin = GPIO_Pin_11 | GPIO_Pin_12 ;
 	GPIO_Init(GPIOB ,&gpio);
+	
+	Road.Action_Mode = Action_Mode_End;
+	Road.Road_Status = Road_Status_DISABLE;
+	Road.times = 0;
 }
 
 void Road_Mode(void)
 {
-	static u8 times = 0;
-	
-	while(1)
+	if(Bluetooth_RX_Data == PAUSE)
 	{
-		if(Bluetooth_RX_Data == PAUSE)
-		{
+		Road.Road_Status = Road_Status_DISABLE;
+		Motor_Pause() ;
+	}
+	switch(Road.Action_Mode)
+	{
+		case Action_Mode_Straight:
+			Motor_ROAD_Speed(300, STRAIGHT, 0);
+			break;
+		case Action_Mode_Left:
+			Motor_ROAD_Speed(300, RIGHT, 60);
+			break;
+		case Action_Mode_Left_Badly:
+			Motor_ROAD_Speed(350, RIGHT, 100);
+			break;
+		case Action_Mode_Right:
+			Motor_ROAD_Speed(300, LEFT, 60);
+			break;
+		case Action_Mode_Right_Badly:
+			Motor_ROAD_Speed(350, LEFT, 100);
+			break;
+		case Action_Mode_End:
+			Road.Road_Status = Road_Status_DISABLE;
 			Motor_Pause();
 			break;
-		}
-		if(L1==WHITE && L2==BLACK && M0==BLACK && R2==BLACK && R1==WHITE)
-		{
-			Motor_ROAD_Speed(300, STRAIGHT, 0);
-		}
-		if(L1==WHITE && (L2==WHITE || R1==BLACK) )
-		{
-			Motor_ROAD_Speed(320, RIGHT, 80);
-		}
-		if(L1==WHITE && L2==WHITE && R1==BLACK)
-		{
-			Motor_ROAD_Speed(340, RIGHT, 100);
-		}
-		if(R1==WHITE && (R2==WHITE || L1==BLACK) )
-		{
-			Motor_ROAD_Speed(320, LEFT, 80);
-		}
-		if(R1==WHITE && R2==WHITE && L1==BLACK )
-		{
-			Motor_ROAD_Speed(340, LEFT, 100);
-		}
-		if(R1==BLACK && L1==BLACK )
-		{
-			times ++ ;
-			if(times >= 3)
-			{
-				delay_ms(100);
-				Motor_Pause();
-				Motor_SPAN_90Degree(250, CLOCKWISE);
-				GAME_STATUS = GAME_STATUS <<2;
-				Send_to_Arduino(DONE);
-			}
-		}
+		default:
+			break; 
 	}
 }
 

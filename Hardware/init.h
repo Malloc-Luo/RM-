@@ -15,6 +15,9 @@
 #define ON 1
 #define OFF 0
 
+#define ROAD 0
+#define AUTO 1
+
 /* u8 Game_Staus 
  * 比赛进程标志
  * 00 00 00 11 ACTION1 0x03

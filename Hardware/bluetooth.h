@@ -2,16 +2,20 @@
 #define __BLUETOOTH_H__
 #include "init.h"
 
-/*Command*/
-#define BEGIN '1'
-#define PAUSE '9'
-#define ROAD_MODE '2'
-#define CONTROL_MODE '3'
-#define SPAN '4'
-#define BACK '5'
-#define FORWARD '6'
-#define TRAN_L '0'
-#define TRAN_R '8'
+/*                   Command                           */
+
+#define BEGIN     '1'   /* begin with automatic        */
+#define ROAD_MODE '2'   /* road mode                   */
+#define SERVO     '3'   /* control the servo upward    */
+#define SPAN_CLK  '4'   /* control the span freequently*/
+#define BACK      '5'   /* backward                    */
+#define FORWARD   '6'   /* forward                     */
+#define SPAN_ANTI '7'
+#define TRAN_R    '8'   /* to the right translation    */
+#define PAUSE     '9'   /* pause all                   */
+#define TRAN_L    '0'   /* to the left translation     */
+
+#define ServoMode(n) ((n%2 == 0) ? SERVOUP : SERVODOWN)
 
 /*usart2 TX PA.2
 				 RX PA.3

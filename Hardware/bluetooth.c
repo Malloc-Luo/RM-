@@ -42,6 +42,8 @@ void Bluetooth_Init(u32 bound)
 
 void USART2_IRQHandler(void)
 {
+	static u8 times = 0;
+	
 	if(USART_GetITStatus(USART2, USART_IT_RXNE) != RESET)
 	{
 		Bluetooth_RX_Data = USART_ReceiveData(USART2);
@@ -60,7 +62,7 @@ void USART2_IRQHandler(void)
 			case TRAN_L:
 				Motor_TRAN_Move(300, LEFT);
 				break;
-			case SPAN:
+			case SPAN_CLK:
 				Motor_SPAN_90Degree(280, CLOCKWISE);	
 				break;
 			case BEGIN:
@@ -68,7 +70,19 @@ void USART2_IRQHandler(void)
 				GAME_STATUS = 0x03;
 				break;
 			case PAUSE:
+				Road.Road_Status = Road_Status_DISABLE;
 				Motor_Pause();
+				break;
+			case SPAN_ANTI:
+				Motor_SPAN_90Degree(280, ANTICLOCKWISE);
+				break;
+			case SERVO:
+				Send_to_Arduino(ServoMode(times));
+				times ++ ;
+				break;
+			case ROAD_MODE:
+				Road.Road_Status = Road_Status_ENABLE;
+				Road.times = 0 ;
 				break;
 			default :
 				Motor_Pause();

@@ -3,7 +3,7 @@
  
 #pragma import(__use_no_semihosting)    
 
-u8 USART1_RX_Data;
+int16_t USART1_RX_Data;
 u8 USART1_RX_LastData;
 u8 TX_Status = 0;
 u8 RX_Status = 0;
@@ -46,8 +46,8 @@ void uart_init(u32 bound)
   GPIO_Init(GPIOA, &GPIO_InitStructure);               
 
   NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQn;
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority=3 ;
-	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 2;		  
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority=1 ;
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;		  
 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;			   
 	NVIC_Init(&NVIC_InitStructure);
   
@@ -80,19 +80,20 @@ void USART1_IRQHandler(void)
 				Send_to_Arduino(SIGNAL2);
 				PID_CTRL = DISABLE;
 			}
-			else if(USART1_RX_Data == SIGNAL4 && !PID_CTRL)
+			else if(USART1_RX_Data == SIGNAL4)
 			{
-				/*控制气缸的代码*/
+				Valve_VALVE1 = ON;
 				Send_to_Arduino(SIGNAL5);
 			}
-			else if(USART1_RX_Data == DONE && !PID_CTRL)
+			else if(USART1_RX_Data == DONE)
 			{
 				GAME_STATUS = GAME_STATUS<<2 ;
+				Road.Road_Status = Road_Status_ENABLE;
 			}
 			if(PID_CTRL)
 			{
-				Set_Speed = (int16_t)USART_ReceiveData(USART1);
-				Motor_PID_Speed(Set_Speed * 2);
+				Set_Speed = 2*(int16_t)USART1_RX_Data;
+				Motor_PID_Speed(Set_Speed);
 			}
 	  }
 /*--------------------ACTION2-------------------------*/		
