@@ -1,29 +1,32 @@
-/**
-  ******************************************************************************
-  * @file    GPIO/IOToggle/stm32f10x_it.c 
-  * @author  MCD Application Team
-  * @version V3.5.0
-  * @date    08-April-2011
-  * @brief   Main Interrupt Service Routines.
-  *          This file provides template for all exceptions handler and peripherals
-  *          interrupt service routine.
-  ******************************************************************************
-  * @attention
-  *
-  * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
-  * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
-  * TIME. AS A RESULT, STMICROELECTRONICS SHALL NOT BE HELD LIABLE FOR ANY
-  * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
-  * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
-  * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
-  *
-  * <h2><center>&copy; COPYRIGHT 2011 STMicroelectronics</center></h2>
-  ******************************************************************************
-  */
-
-/* Includes ------------------------------------------------------------------*/
 #include "stm32f10x_it.h" 
- 
+
+/* 50ms执行一次 */
+void Timer_50ms(void)
+{
+	if(Valve.Valve_EN == ENABLE)
+	{
+		Valve_Control();
+		Valve.Valve_EN = DISABLE;
+		Send_to_Arduino(SIGNAL1);
+	}
+}
+
+/* 100ms执行一次 */
+void Timer_100ms(void)
+{
+	LED_Mode(GAME_STATUS);
+	if(Motor_Start)
+	{
+		Motor_PID_Speed(-280);
+	}
+}
+
+/* 200ms执行一次 */
+void Timer_200ms(void)
+{
+	
+}
+
 void NMI_Handler(void)
 {
 }
@@ -72,49 +75,58 @@ void DebugMon_Handler(void)
 void PendSV_Handler(void)
 {
 }
- 
+
+/* 5ms执行一次 */
 void SysTick_Handler(void)
 {
 	static u8 n = 0;
 	static u8 EN ;
+	static uint16_t timer = 0;
 	
-	if(L1==WHITE && L2==WHITE && M0==BLACK && R2==WHITE && R1==WHITE)
-		Road.Action_Mode = Action_Mode_Straight;
-	else if(L1==WHITE && L2==WHITE && M0==BLACK && R2==BLACK && R1==WHITE)
-		Road.Action_Mode = Action_Mode_Left;
-	else if(L1==WHITE && L2==WHITE && R2==BLACK && R1==BLACK)
-		Road.Action_Mode = Action_Mode_Left_Badly;
-	else if(L1==WHITE && L2==BLACK && M0==BLACK && R2==WHITE && R1==WHITE)
-		Road.Action_Mode = Action_Mode_Right;
-	else if(L1==BLACK && L2==BLACK && R2==WHITE && R1==WHITE)
-		Road.Action_Mode = Action_Mode_Right_Badly;
-	else if(L1==BLACK && L2==BLACK && M0==BLACK && R2==BLACK && R1==BLACK)
-		EN = ENABLE;
-	else if(L1==WHITE && L2==WHITE && M0==WHITE && R2==WHITE && R1==WHITE)
-		Road.Action_Mode = Action_Mode_End;
-	if(EN && Road.Road_Status == Road_Status_ENABLE)
+	timer ++;
+	
+	if(timer%10 == 0)
+		Timer_50ms();
+	if(timer%20 == 0)
+		Timer_100ms();
+	if(timer%40 == 0)
+		Timer_200ms();
+	if(timer >= 65530)
+		timer = 0;
+	
+	if(Road.Road_Status)
 	{
-		if(n++ >=5)
-			if((L1==WHITE || L2==WHITE) && (R2==WHITE || R1==WHITE))
-			{
-				Road.times++;
-				EN = DISABLE;
-				n = 0;
-				if(Road.times == 3)
-					Road.Action_Mode = Action_Mode_End;
-			}
+		if(L1==WHITE && L2==WHITE && M0==BLACK && R2==WHITE && R1==WHITE)
+			Road.Action_Mode = Action_Mode_Straight;
+		else if(L1==WHITE && L2==WHITE && R2==BLACK && R1==WHITE)
+			Road.Action_Mode = Action_Mode_Left;
+		else if(L1==WHITE && L2==WHITE && R2==BLACK && R1==BLACK)
+			Road.Action_Mode = Action_Mode_Left_Badly;
+		else if(L1==WHITE && L2==BLACK && R2==WHITE && R1==WHITE)
+			Road.Action_Mode = Action_Mode_Right;
+		else if(L1==BLACK && L2==BLACK && R2==WHITE && R1==WHITE)
+			Road.Action_Mode = Action_Mode_Right_Badly;
+		else if((L1==BLACK || L2==BLACK) && M0==BLACK && (R2==BLACK || R1==BLACK))
+			EN = ENABLE;
+		if(EN)
+		{
+			if(n++ >=5)
+				if((L1==WHITE || L2==WHITE) && (R2==WHITE || R1==WHITE) && M0==BLACK)
+				{
+					Road.times++;
+					EN = DISABLE;
+					n = 0;
+					if(Road.times == 3)
+						Road.Action_Mode = Action_Mode_End;
+				}
+		}
+		if(Road.times<3)
+		{
+			Road_Mode();
+		}
+		if(Road.times >=3 )
+			Motor_Pause();
 	}
-	if(Road.Road_Status==Road_Status_ENABLE && Road.times<3)
-	{
-		Road_Mode();
-	}
-	if(Road.times >=3 )
-		Motor_Pause();
 }
 
-/******************************************************************************/
-/*                 STM32F10x Peripherals Interrupt Handlers                   */
-/*  Add here the Interrupt Handler for the used peripheral(s) (PPP), for the  */
-/*  available peripheral interrupt handler's name please refer to the startup */
-/*  file (startup_stm32f10x_xx.s).                                            */
-/******************************************************************************/
+

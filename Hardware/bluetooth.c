@@ -50,31 +50,38 @@ void USART2_IRQHandler(void)
 		
 		switch(Bluetooth_RX_Data)
 		{
+			case BEGIN:
+				Motor_Start = ENABLE;
+				GAME_STATUS = 0x03;
+				break;
+			case VALVE_STATUS:
+				Valve.Valve_EN = ENABLE;
+				Valve.Valve_Status = OPEN;
+				break;
+			case HIT:
+				Hit(350);
+				break;
 			case FORWARD:
-				Motor_PID_Speed(250);
+				Motor_PID_Speed(320);
 				break;
 			case BACK:
-				Motor_PID_Speed(-250);
+				Motor_PID_Speed(-320);
 				break;
 			case TRAN_R:
-				Motor_TRAN_Move(300, RIGHT);
+				Motor_TRAN_Move(320, RIGHT);
 				break;
 			case TRAN_L:
-				Motor_TRAN_Move(300, LEFT);
+				Motor_TRAN_Move(320, LEFT);
 				break;
 			case SPAN_CLK:
-				Motor_SPAN_90Degree(280, CLOCKWISE);	
-				break;
-			case BEGIN:
-				Send_to_Arduino(SIGNAL1);
-				GAME_STATUS = 0x03;
+				Motor_SPAN_90Degree(300, CLOCKWISE);	
 				break;
 			case PAUSE:
 				Road.Road_Status = Road_Status_DISABLE;
 				Motor_Pause();
 				break;
 			case SPAN_ANTI:
-				Motor_SPAN_90Degree(280, ANTICLOCKWISE);
+				Motor_SPAN_90Degree(300, ANTICLOCKWISE);
 				break;
 			case SERVO:
 				Send_to_Arduino(ServoMode(times));

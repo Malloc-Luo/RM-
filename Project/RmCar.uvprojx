@@ -548,6 +548,11 @@
               <FileType>1</FileType>
               <FilePath>..\Hardware\valve.c</FilePath>
             </File>
+            <File>
+              <FileName>brake.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Hardware\brake.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

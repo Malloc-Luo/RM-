@@ -40,3 +40,4 @@
 .\objects\main.o: ..\Hardware\valve.h
 .\objects\main.o: ..\Hardware\led.h
 .\objects\main.o: ..\Project\stm32f10x_it.h
+.\objects\main.o: ..\Hardware\brake.h

@@ -33,19 +33,19 @@ void Road_Mode(void)
 	switch(Road.Action_Mode)
 	{
 		case Action_Mode_Straight:
-			Motor_ROAD_Speed(300, STRAIGHT, 0);
+			Motor_ROAD_Speed(280, STRAIGHT, 0);
 			break;
 		case Action_Mode_Left:
-			Motor_ROAD_Speed(300, RIGHT, 60);
+			Motor_ROAD_Speed(340, RIGHT, 180);
 			break;
 		case Action_Mode_Left_Badly:
-			Motor_ROAD_Speed(350, RIGHT, 100);
+			Motor_ROAD_Speed(380, RIGHT, 220);
 			break;
 		case Action_Mode_Right:
-			Motor_ROAD_Speed(300, LEFT, 60);
+			Motor_ROAD_Speed(340, LEFT, 180);
 			break;
 		case Action_Mode_Right_Badly:
-			Motor_ROAD_Speed(350, LEFT, 100);
+			Motor_ROAD_Speed(380, LEFT, 220);
 			break;
 		case Action_Mode_End:
 			Road.Road_Status = Road_Status_DISABLE;

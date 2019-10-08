@@ -8,7 +8,11 @@
 	TIM3_CH4  PB.1
 	TIM4_CH1  PB.6
 	TIM4_CH2  PB.7
+	
+	TIM4_CH3  PB.8
 */
+
+u8 Motor_Start;
 
 void Motor_Init(void)
 {
@@ -25,6 +29,10 @@ void Motor_Init(void)
 	
 	GPIO_Init(GPIOA ,&gpio);
 	GPIO_Init(GPIOB ,&gpio);
+	
+	gpio.GPIO_Pin = GPIO_Pin_8;
+	
+	GPIO_Init(GPIOB, &gpio);
 	
 	time.TIM_ClockDivision = 0;
 	time.TIM_Prescaler = 0;
@@ -45,6 +53,7 @@ void Motor_Init(void)
 	TIM_OC2Init(TIM4, &oc);
 	TIM_OC3Init(TIM3, &oc);
 	TIM_OC4Init(TIM3, &oc);
+	TIM_OC3Init(TIM4, &oc);
 	
 	TIM_OC1PreloadConfig(TIM3, TIM_OCPreload_Enable);
 	TIM_OC1PreloadConfig(TIM2, TIM_OCPreload_Enable);
@@ -54,6 +63,7 @@ void Motor_Init(void)
 	TIM_OC2PreloadConfig(TIM4, TIM_OCPreload_Enable);
 	TIM_OC3PreloadConfig(TIM3, TIM_OCPreload_Enable);
 	TIM_OC4PreloadConfig(TIM3, TIM_OCPreload_Enable);
+	TIM_OC3PreloadConfig(TIM4, TIM_OCPreload_Enable);
 	
 	TIM_Cmd(TIM2, ENABLE);
 	TIM_Cmd(TIM3, ENABLE);
@@ -171,8 +181,8 @@ void Motor_ROAD_Speed(SPEED speed, DIRECTION direction, DELTA delta)
 	{
 		ForRight(speed-delta, F);
 		ForLeft(speed, F);
-		BackRight(speed-delta/5, F);
-		BackLeft(speed-delta+80, F);
+		BackRight(speed-delta-50, F);
+		BackLeft(speed-delta/5, F);
 	}
 	else
 	{

@@ -6,7 +6,7 @@
 
 #define SIGNAL1 0x01   //arduino开始对数据PID，并将数据发回stm32
 #define SIGNAL2 0x02
-#define SIGNAL3 0x03
+#define SIGNAL3 0xfe
 #define SIGNAL4 0x04
 #define SIGNAL5 0x05
 #define SIGNAL6 0x06

@@ -41,3 +41,4 @@
 .\objects\usart.o: ..\Hardware\valve.h
 .\objects\usart.o: ..\Hardware\led.h
 .\objects\usart.o: ..\Project\stm32f10x_it.h
+.\objects\usart.o: ..\Hardware\brake.h

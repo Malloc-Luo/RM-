@@ -11,14 +11,8 @@ void LED_Init(void)
 	gpio.GPIO_Speed = GPIO_Speed_50MHz ;
 	GPIO_Init(GPIOA , &gpio);
 	
-	gpio.GPIO_Pin = GPIO_Pin_8 | GPIO_Pin_9 ;
-	GPIO_Init(GPIOB , &gpio);
-	
 	GPIO_ResetBits(GPIOA , GPIO_Pin_4);
 	GPIO_ResetBits(GPIOA , GPIO_Pin_5);
-	GPIO_ResetBits(GPIOB , GPIO_Pin_8);
-	GPIO_ResetBits(GPIOB , GPIO_Pin_9);
-	
 }
 
 void LED_Mode(u8 status)

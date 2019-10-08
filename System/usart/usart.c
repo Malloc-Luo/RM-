@@ -72,34 +72,15 @@ void USART1_IRQHandler(void)
 /*-----------------ACTION1--------------------------*/		
 		if(GAME_STATUS == 0x03)
 		{
-			if(USART1_RX_Data == BEGINING)
-				PID_CTRL = ENABLE;
-			if(USART1_RX_Data == SIGNAL3)
+			if(USART1_RX_Data == DONE)
 			{
-				Motor_Pause();
-				Send_to_Arduino(SIGNAL2);
-				PID_CTRL = DISABLE;
-			}
-			else if(USART1_RX_Data == SIGNAL4)
-			{
-				Valve_VALVE1 = ON;
-				Send_to_Arduino(SIGNAL5);
-			}
-			else if(USART1_RX_Data == DONE)
-			{
-				GAME_STATUS = GAME_STATUS<<2 ;
+				GAME_STATUS <<=2;
 				Road.Road_Status = Road_Status_ENABLE;
 			}
-			if(PID_CTRL)
-			{
-				Set_Speed = 2*(int16_t)USART1_RX_Data;
-				Motor_PID_Speed(Set_Speed);
-			}
-	  }
+		}
 /*--------------------ACTION2-------------------------*/		
 //		else if(GAME_STATUS == 0x0C)
 //		{
-//			Road_Mode();
 //		}
 /*--------------------ACTION3-------------------------*/
 		else if(GAME_STATUS == 0x30)

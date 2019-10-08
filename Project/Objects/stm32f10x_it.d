@@ -41,3 +41,4 @@
 .\objects\stm32f10x_it.o: ..\Hardware\valve.h
 .\objects\stm32f10x_it.o: ..\Hardware\led.h
 .\objects\stm32f10x_it.o: ..\Project\stm32f10x_it.h
+.\objects\stm32f10x_it.o: ..\Hardware\brake.h

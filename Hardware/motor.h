@@ -20,16 +20,13 @@
 #define Back_Left_B(speed) TIM_SetCompare2(TIM4, speed)
 #define Back_Right_A(speed) TIM_SetCompare3(TIM3, speed)
 #define Back_Right_B(speed) TIM_SetCompare4(TIM3, speed)
+#define Hit(speed) TIM_SetCompare3(TIM4, speed)
 
 #define SPEED0 0
-#define SPEED1 150
-#define SPEED2 200
-#define SPEED3 250
-#define SPEED4 300
-#define SPEED5 350
-#define SPEED6 400
-#define SPEED7 450
-#define SPEED8 500
+
+#define Motor_Hit_Sport(speed) TIM_SetCompare3(TIM4, speed)
+
+extern u8 Motor_Start; /*电机开始阶段启动 ENABLE DISABLE*/
 
 typedef int16_t SPEED;
 typedef int16_t DIRECTION;
@@ -66,5 +63,7 @@ void Motor_Pause(void);
 			 TIM4_CH1 TIM4_CH2 控制左后轮
 			 TIM3_CH3 TIM3_CH4 控制右后轮
 	且 当TIM2_CH1 TIM3_CH1 TIM4_CH1 TIM3_CH3 同时拉高时，小车沿规定正方向运动
+	
+	TIM4_CH3 控制击打装置电机转动
 */
 
