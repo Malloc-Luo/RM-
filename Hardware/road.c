@@ -4,14 +4,17 @@
 
 RoadMode Road;
 
+/*-------------------*/
+Road_Test test;
+
 void Road_Init(void)
 {
 	GPIO_InitTypeDef gpio;
 	
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA | RCC_APB2Periph_GPIOB , ENABLE);
 	
-	gpio.GPIO_Mode = GPIO_Mode_IN_FLOATING ;
-	gpio.GPIO_Pin = GPIO_Pin_12 | GPIO_Pin_13 | GPIO_Pin_11 ;
+	gpio.GPIO_Mode = GPIO_Mode_IPD;
+	gpio.GPIO_Pin = GPIO_Pin_12 | GPIO_Pin_5 | GPIO_Pin_11 ;
 	gpio.GPIO_Speed = GPIO_Speed_50MHz ;
 	GPIO_Init(GPIOB ,&gpio);
 	
@@ -25,11 +28,7 @@ void Road_Init(void)
 
 void Road_Mode(void)
 {
-	if(Bluetooth_RX_Data == PAUSE)
-	{
-		Road.Road_Status = Road_Status_DISABLE;
-		Motor_Pause() ;
-	}
+	
 	switch(Road.Action_Mode)
 	{
 		case Action_Mode_Straight:
@@ -39,13 +38,13 @@ void Road_Mode(void)
 			Motor_ROAD_Speed(340, RIGHT, 180);
 			break;
 		case Action_Mode_Left_Badly:
-			Motor_ROAD_Speed(380, RIGHT, 220);
+			Motor_ROAD_Speed(360, RIGHT, 220);
 			break;
 		case Action_Mode_Right:
 			Motor_ROAD_Speed(340, LEFT, 180);
 			break;
 		case Action_Mode_Right_Badly:
-			Motor_ROAD_Speed(380, LEFT, 220);
+			Motor_ROAD_Speed(360, LEFT, 220);
 			break;
 		case Action_Mode_End:
 			Road.Road_Status = Road_Status_DISABLE;

@@ -74,23 +74,21 @@ void USART1_IRQHandler(void)
 		{
 			if(USART1_RX_Data == DONE)
 			{
-				GAME_STATUS <<=2;
 				Road.Road_Status = Road_Status_ENABLE;
+				GAME_STATUS <<=2;
 			}
 		}
-/*--------------------ACTION2-------------------------*/		
-//		else if(GAME_STATUS == 0x0C)
-//		{
-//		}
+/*--------------------ACTION2-------------------------*/
+		else if(GAME_STATUS == 0x0C)
+		{
+		}
 /*--------------------ACTION3-------------------------*/
 		else if(GAME_STATUS == 0x30)
 		{
-			
 		}
 /*--------------------ACTION4-------------------------*/
 		else if(GAME_STATUS == 0xC0)
 		{
-			
 		}
 	}
 }

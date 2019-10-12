@@ -23,7 +23,6 @@
 ".\objects\road.o"
 ".\objects\init.o"
 ".\objects\bluetooth.o"
-".\objects\led.o"
 ".\objects\valve.o"
 ".\objects\brake.o"
 ".\objects\core_cm3.o"
@@ -32,6 +31,6 @@
 ".\objects\sys.o"
 ".\objects\usart.o"
 --strict --scatter ".\Objects\RmCar.sct"
---summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
 --list ".\Listings\RmCar.map" -o .\Objects\RmCar.axf

@@ -3,18 +3,11 @@
 /* 50ms执行一次 */
 void Timer_50ms(void)
 {
-	if(Valve.Valve_EN == ENABLE)
-	{
-		Valve_Control();
-		Valve.Valve_EN = DISABLE;
-		Send_to_Arduino(SIGNAL1);
-	}
 }
 
 /* 100ms执行一次 */
 void Timer_100ms(void)
 {
-	LED_Mode(GAME_STATUS);
 	if(Motor_Start)
 	{
 		Motor_PID_Speed(-280);
@@ -24,8 +17,8 @@ void Timer_100ms(void)
 /* 200ms执行一次 */
 void Timer_200ms(void)
 {
-	
 }
+
 
 void NMI_Handler(void)
 {
@@ -80,37 +73,61 @@ void PendSV_Handler(void)
 void SysTick_Handler(void)
 {
 	static u8 n = 0;
-	static u8 EN ;
-	static uint16_t timer = 0;
+	static u8 EN = DISABLE ;
+	static uint16_t timer1 = 0;
+	static uint16_t timer2 = 0;
 	
-	timer ++;
+	timer1 ++;
 	
-	if(timer%10 == 0)
+	if(timer1%10 == 0)
 		Timer_50ms();
-	if(timer%20 == 0)
+	if(timer1%20 == 0)
 		Timer_100ms();
-	if(timer%40 == 0)
+	if(timer1%40 == 0)
 		Timer_200ms();
-	if(timer >= 65530)
-		timer = 0;
-	
-	if(Road.Road_Status)
+	if(timer1 >= 65530)
+		timer1 = 0;
+
+//延时 1000ms	
+	if(Valve.Valve_EN == ENABLE)
 	{
-		if(L1==WHITE && L2==WHITE && M0==BLACK && R2==WHITE && R1==WHITE)
-			Road.Action_Mode = Action_Mode_Straight;
-		else if(L1==WHITE && L2==WHITE && R2==BLACK && R1==WHITE)
-			Road.Action_Mode = Action_Mode_Left;
-		else if(L1==WHITE && L2==WHITE && R2==BLACK && R1==BLACK)
-			Road.Action_Mode = Action_Mode_Left_Badly;
-		else if(L1==WHITE && L2==BLACK && R2==WHITE && R1==WHITE)
-			Road.Action_Mode = Action_Mode_Right;
-		else if(L1==BLACK && L2==BLACK && R2==WHITE && R1==WHITE)
-			Road.Action_Mode = Action_Mode_Right_Badly;
-		else if((L1==BLACK || L2==BLACK) && M0==BLACK && (R2==BLACK || R1==BLACK))
+		timer2 ++;
+		if(timer2 >= 200)
+		{
+			Valve_Control();
+		  Valve.Valve_EN = DISABLE;
+		  Send_to_Arduino(SIGNAL1);
+			timer2 = 0;
+		}
+	}
+	
+	test.l1 = GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_12);
+	test.l2 = GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_11);
+	test.m0 = GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_11);
+	test.r1 = GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_12);
+	test.r2 = GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_5 );
+	
+	if(L1==WHITE && L2==WHITE && M0==BLACK && R2==WHITE && R1==WHITE)
+		Road.Action_Mode = Action_Mode_Straight;
+	else if(L1==WHITE && L2==WHITE && R2==BLACK && R1==WHITE)
+		Road.Action_Mode = Action_Mode_Left;
+	else if(L1==WHITE && L2==WHITE && R2==BLACK && R1==BLACK)
+		Road.Action_Mode = Action_Mode_Left_Badly;
+	else if(L1==WHITE && L2==BLACK && R2==WHITE && R1==WHITE)
+		Road.Action_Mode = Action_Mode_Right;
+	else if(L1==BLACK && L2==BLACK && R2==WHITE && R1==WHITE)
+		Road.Action_Mode = Action_Mode_Right_Badly;
+	else 
+		Road.Action_Mode = Action_Mode_Straight;
+
+	if(Road.Road_Status == Road_Status_ENABLE)
+	{
+		if((L1==BLACK || L2==BLACK) && M0==BLACK && (R2==BLACK || R1==BLACK))
 			EN = ENABLE;
 		if(EN)
 		{
-			if(n++ >=5)
+			if(n++ >=10)
+			{
 				if((L1==WHITE || L2==WHITE) && (R2==WHITE || R1==WHITE) && M0==BLACK)
 				{
 					Road.times++;
@@ -119,13 +136,15 @@ void SysTick_Handler(void)
 					if(Road.times == 3)
 						Road.Action_Mode = Action_Mode_End;
 				}
+			}
 		}
-		if(Road.times<3)
-		{
+		if(Road.times < 3)
 			Road_Mode();
-		}
-		if(Road.times >=3 )
+		else
+		{
 			Motor_Pause();
+			Road.Road_Status = Road_Status_DISABLE;
+		}
 	}
 }
 

@@ -2,7 +2,7 @@
 .\objects\stm32f10x_it.o: stm32f10x_it.h
 .\objects\stm32f10x_it.o: stm32f10x.h
 .\objects\stm32f10x_it.o: ..\Core\core_cm3.h
-.\objects\stm32f10x_it.o: D:\KeilMDK5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\stm32f10x_it.o: D:\KeilMDK5_New\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\stm32f10x_it.o: system_stm32f10x.h
 .\objects\stm32f10x_it.o: stm32f10x_conf.h
 .\objects\stm32f10x_it.o: ..\Lib\inc\stm32f10x_adc.h
@@ -31,7 +31,7 @@
 .\objects\stm32f10x_it.o: ..\Lib\inc\misc.h
 .\objects\stm32f10x_it.o: ..\Hardware\init.h
 .\objects\stm32f10x_it.o: ..\System\sys\sys.h
-.\objects\stm32f10x_it.o: D:\KeilMDK5\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\stm32f10x_it.o: D:\KeilMDK5_New\ARM\ARMCC\Bin\..\include\stdio.h
 .\objects\stm32f10x_it.o: ..\Hardware\motor.h
 .\objects\stm32f10x_it.o: ..\Hardware\init.h
 .\objects\stm32f10x_it.o: ..\Hardware\road.h
@@ -39,6 +39,5 @@
 .\objects\stm32f10x_it.o: ..\System\delay\delay.h
 .\objects\stm32f10x_it.o: ..\Hardware\bluetooth.h
 .\objects\stm32f10x_it.o: ..\Hardware\valve.h
-.\objects\stm32f10x_it.o: ..\Hardware\led.h
 .\objects\stm32f10x_it.o: ..\Project\stm32f10x_it.h
 .\objects\stm32f10x_it.o: ..\Hardware\brake.h

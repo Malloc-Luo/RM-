@@ -1,6 +1,6 @@
 #ifndef __PID_H__
 #define __PID_H__
-#include "init.h"
+#include "sys.h"
 #define Tp 0.001
 
 struct Pid

@@ -6,33 +6,35 @@ void Brake_Init(void)
 	NVIC_InitTypeDef nvic;
 	GPIO_InitTypeDef gpio;
 	
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO | RCC_APB2Periph_GPIOB, ENABLE);
-	GPIO_EXTILineConfig(GPIO_PortSourceGPIOB , GPIO_PinSource9);
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO | RCC_APB2Periph_GPIOA, ENABLE);
+	GPIO_EXTILineConfig(GPIO_PortSourceGPIOA , GPIO_PinSource4);
 	
-	gpio.GPIO_Mode = GPIO_Mode_IN_FLOATING;
-	gpio.GPIO_Pin = GPIO_Pin_9;
+	gpio.GPIO_Mode = GPIO_Mode_IPU;
+	gpio.GPIO_Pin = GPIO_Pin_4;
 	gpio.GPIO_Speed = GPIO_Speed_50MHz;
-	GPIO_Init(GPIOB, &gpio);
+	GPIO_Init(GPIOA, &gpio);
 	
-	exti.EXTI_Line = EXTI_Line9 ;
+	exti.EXTI_Line = EXTI_Line4 ;
 	exti.EXTI_Mode = EXTI_Mode_Interrupt;
-	exti.EXTI_Trigger = EXTI_Trigger_Rising_Falling;
-	exti.EXTI_LineCmd = ENABLE;
+	exti.EXTI_Trigger = EXTI_Trigger_Falling;
 	EXTI_Init(&exti);
 	
-	nvic.NVIC_IRQChannel = EXTI9_5_IRQn;
+	nvic.NVIC_IRQChannel = EXTI4_IRQn;
 	nvic.NVIC_IRQChannelCmd = ENABLE;
-	nvic.NVIC_IRQChannelPreemptionPriority = 0x00;
+	nvic.NVIC_IRQChannelPreemptionPriority = 0x01;
 	nvic.NVIC_IRQChannelSubPriority = 0x00;
 	NVIC_Init(&nvic);
 }
 
-void EXTI9_5_IRQHandler(void)
+void EXTI4_IRQHandler(void)
 {
-	EXTI_ClearITPendingBit(EXTI_Line9);
+	EXTI_ClearITPendingBit(EXTI_Line4);
 	Motor_Pause();
-	NVIC_DisableIRQ(EXTI9_5_IRQn);
+	
+	NVIC_DisableIRQ(EXTI4_IRQn);
+	
 	Motor_Start = DISABLE;
+	
 	Valve.Valve_EN = ENABLE;
 	Valve.Valve_Status = CLOSE;
 }

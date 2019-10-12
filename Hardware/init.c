@@ -13,7 +13,6 @@ void Init_All(void)
 	Bluetooth_Init(9600);
 	Road_Init();
 	Valve_Init();
-	LED_Init();
 	Brake_Init();
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);
 	SysTick_Config(SystemCoreClock/200);

@@ -4,7 +4,7 @@
 .\objects\led.o: ..\System\sys\sys.h
 .\objects\led.o: ..\Project\stm32f10x.h
 .\objects\led.o: ..\Core\core_cm3.h
-.\objects\led.o: D:\KeilMDK5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\led.o: D:\KeilMDK5_New\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\led.o: ..\Project\system_stm32f10x.h
 .\objects\led.o: ..\Project\stm32f10x_conf.h
 .\objects\led.o: ..\Lib\inc\stm32f10x_adc.h
@@ -31,7 +31,7 @@
 .\objects\led.o: ..\Lib\inc\stm32f10x_usart.h
 .\objects\led.o: ..\Lib\inc\stm32f10x_wwdg.h
 .\objects\led.o: ..\Lib\inc\misc.h
-.\objects\led.o: D:\KeilMDK5\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\led.o: D:\KeilMDK5_New\ARM\ARMCC\Bin\..\include\stdio.h
 .\objects\led.o: ..\Hardware\motor.h
 .\objects\led.o: ..\Hardware\init.h
 .\objects\led.o: ..\Hardware\road.h

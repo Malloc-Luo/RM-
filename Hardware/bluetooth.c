@@ -62,10 +62,10 @@ void USART2_IRQHandler(void)
 				Hit(350);
 				break;
 			case FORWARD:
-				Motor_PID_Speed(320);
+				Motor_PID_Speed(300);
 				break;
 			case BACK:
-				Motor_PID_Speed(-320);
+				Motor_PID_Speed(-300);
 				break;
 			case TRAN_R:
 				Motor_TRAN_Move(320, RIGHT);
@@ -78,6 +78,7 @@ void USART2_IRQHandler(void)
 				break;
 			case PAUSE:
 				Road.Road_Status = Road_Status_DISABLE;
+				Motor_Start = DISABLE;
 				Motor_Pause();
 				break;
 			case SPAN_ANTI:

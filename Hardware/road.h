@@ -4,18 +4,18 @@
 
 /*    五路红外循迹        */
 /*   由左到右依次为：     */
-/*PA12 PA11 PB11 PB13 PB12*/
+/*PA12 PA11 PB11 PB5 PB12*/
 /* L1   L2   M0   R2   R1 */
 /* 保证 M0 的值为 BLACK   L1 L2 R1 R2 值位 WHITE 则小车在直线上行走 */
 
-#define L1 PAin(12)
-#define L2 PAin(11)
-#define M0 PBin(11)
-#define R1 PBin(12)
-#define R2 PBin(13)
+#define L1 GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_12)
+#define L2 GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_11)
+#define M0 GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_11)
+#define R1 GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_12)
+#define R2 GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_5)
 
-#define BLACK 0
-#define WHITE 1
+#define WHITE 0
+#define BLACK !WHITE
 
 typedef struct 
 {
@@ -23,6 +23,18 @@ typedef struct
 	u8 times;
 	u8 Action_Mode;
 }RoadMode;
+
+/*-------------------*/
+typedef struct 
+{
+	u8 l1;
+	u8 l2;
+	u8 m0;
+	u8 r2;
+	u8 r1;
+}Road_Test;
+
+extern Road_Test test;
 
 /* RoadMode.Action_Mode */
 
@@ -33,8 +45,8 @@ typedef struct
 #define Action_Mode_Left_Badly  0x04
 #define Action_Mode_End         0x05
 
-#define Road_Status_ENABLE  0x01
-#define Road_Status_DISABLE 0x02
+#define Road_Status_ENABLE  1
+#define Road_Status_DISABLE 0
 
 extern RoadMode Road;
 

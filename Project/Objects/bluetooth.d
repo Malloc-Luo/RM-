@@ -4,7 +4,7 @@
 .\objects\bluetooth.o: ..\System\sys\sys.h
 .\objects\bluetooth.o: ..\Project\stm32f10x.h
 .\objects\bluetooth.o: ..\Core\core_cm3.h
-.\objects\bluetooth.o: D:\KeilMDK5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\bluetooth.o: D:\KeilMDK5_New\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\bluetooth.o: ..\Project\system_stm32f10x.h
 .\objects\bluetooth.o: ..\Project\stm32f10x_conf.h
 .\objects\bluetooth.o: ..\Lib\inc\stm32f10x_adc.h
@@ -31,7 +31,7 @@
 .\objects\bluetooth.o: ..\Lib\inc\stm32f10x_usart.h
 .\objects\bluetooth.o: ..\Lib\inc\stm32f10x_wwdg.h
 .\objects\bluetooth.o: ..\Lib\inc\misc.h
-.\objects\bluetooth.o: D:\KeilMDK5\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\bluetooth.o: D:\KeilMDK5_New\ARM\ARMCC\Bin\..\include\stdio.h
 .\objects\bluetooth.o: ..\Hardware\motor.h
 .\objects\bluetooth.o: ..\Hardware\init.h
 .\objects\bluetooth.o: ..\Hardware\road.h
@@ -39,6 +39,5 @@
 .\objects\bluetooth.o: ..\System\delay\delay.h
 .\objects\bluetooth.o: ..\Hardware\bluetooth.h
 .\objects\bluetooth.o: ..\Hardware\valve.h
-.\objects\bluetooth.o: ..\Hardware\led.h
 .\objects\bluetooth.o: ..\Project\stm32f10x_it.h
 .\objects\bluetooth.o: ..\Hardware\brake.h
