@@ -4,9 +4,6 @@
 
 RoadMode Road;
 
-/*-------------------*/
-Road_Test test;
-
 void Road_Init(void)
 {
 	GPIO_InitTypeDef gpio;
@@ -19,7 +16,7 @@ void Road_Init(void)
 	GPIO_Init(GPIOB ,&gpio);
 	
 	gpio.GPIO_Pin = GPIO_Pin_11 | GPIO_Pin_12 ;
-	GPIO_Init(GPIOB ,&gpio);
+	GPIO_Init(GPIOA ,&gpio);
 	
 	Road.Action_Mode = Action_Mode_End;
 	Road.Road_Status = Road_Status_DISABLE;
@@ -32,19 +29,19 @@ void Road_Mode(void)
 	switch(Road.Action_Mode)
 	{
 		case Action_Mode_Straight:
-			Motor_ROAD_Speed(280, STRAIGHT, 0);
+			Motor_ROAD_Speed(300, STRAIGHT, 0);
 			break;
 		case Action_Mode_Left:
-			Motor_ROAD_Speed(340, RIGHT, 180);
+			Motor_ROAD_Speed(350, RIGHT, 160);
 			break;
 		case Action_Mode_Left_Badly:
-			Motor_ROAD_Speed(360, RIGHT, 220);
+			Motor_ROAD_Speed(800, RIGHT, 700);
 			break;
 		case Action_Mode_Right:
-			Motor_ROAD_Speed(340, LEFT, 180);
+			Motor_ROAD_Speed(350, LEFT, 160);
 			break;
 		case Action_Mode_Right_Badly:
-			Motor_ROAD_Speed(360, LEFT, 220);
+			Motor_ROAD_Speed(800, LEFT, 700);
 			break;
 		case Action_Mode_End:
 			Road.Road_Status = Road_Status_DISABLE;

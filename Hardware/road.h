@@ -12,7 +12,7 @@
 #define L2 GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_11)
 #define M0 GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_11)
 #define R1 GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_12)
-#define R2 GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_5)
+#define R2 GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_5 )
 
 #define WHITE 0
 #define BLACK !WHITE
@@ -23,18 +23,6 @@ typedef struct
 	u8 times;
 	u8 Action_Mode;
 }RoadMode;
-
-/*-------------------*/
-typedef struct 
-{
-	u8 l1;
-	u8 l2;
-	u8 m0;
-	u8 r2;
-	u8 r1;
-}Road_Test;
-
-extern Road_Test test;
 
 /* RoadMode.Action_Mode */
 

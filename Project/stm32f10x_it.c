@@ -100,13 +100,7 @@ void SysTick_Handler(void)
 			timer2 = 0;
 		}
 	}
-	
-	test.l1 = GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_12);
-	test.l2 = GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_11);
-	test.m0 = GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_11);
-	test.r1 = GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_12);
-	test.r2 = GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_5 );
-	
+
 	if(L1==WHITE && L2==WHITE && M0==BLACK && R2==WHITE && R1==WHITE)
 		Road.Action_Mode = Action_Mode_Straight;
 	else if(L1==WHITE && L2==WHITE && R2==BLACK && R1==WHITE)
