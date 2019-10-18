@@ -24,7 +24,6 @@ typedef int16_t PID_Kp;
 typedef int16_t PID_Kd;
 
 extern PID speed;
-extern PID pos;
 
 int16_t PID_Control(int16_t setvalue, int16_t actualvalue, PID * pid);
 

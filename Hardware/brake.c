@@ -28,13 +28,13 @@ void Brake_Init(void)
 
 void EXTI4_IRQHandler(void)
 {
-	EXTI_ClearITPendingBit(EXTI_Line4);
 	Motor_Pause();
-	
-	NVIC_DisableIRQ(EXTI4_IRQn);
 	
 	Motor_Start = DISABLE;
 	
 	Valve.Valve_EN = ENABLE;
 	Valve.Valve_Status = CLOSE;
+	
+	NVIC_DisableIRQ(EXTI4_IRQn);
+	EXTI_ClearITPendingBit(EXTI_Line4);
 }

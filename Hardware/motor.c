@@ -184,6 +184,8 @@ void Motor_ROAD_Speed(SPEED speed, DIRECTION direction, DELTA delta)
 		BackRight(speed-delta-50, F);
 		BackLeft(speed-delta/5, F);
 	}
+	else if(direction == CLOCKWISE || direction == ANTICLOCKWISE)
+		Motor_SPAN(speed - delta, direction);
 	else
 	{
 		ForRight(speed-delta, F);
@@ -196,7 +198,7 @@ void Motor_ROAD_Speed(SPEED speed, DIRECTION direction, DELTA delta)
 /*原地旋转90度*/
 /*DIRECTION 参见宏定义 - CLOCKWISE - - ANTICLOCKWISE - */
 
-void Motor_SPAN_90Degree(SPEED speed, DIRECTION direction)
+void Motor_SPAN(SPEED speed, DIRECTION direction)
 {
 	if(direction == CLOCKWISE)
 	{

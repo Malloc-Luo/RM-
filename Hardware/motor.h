@@ -9,22 +9,22 @@
 #define F 1
 #define B 0
 
-#define CLOCKWISE 1
-#define ANTICLOCKWISE 0
+#define CLOCKWISE 3
+#define ANTICLOCKWISE 4
 
-#define For_Left_A(speed) TIM_SetCompare1(TIM2, speed)
-#define For_Left_B(speed) TIM_SetCompare2(TIM2, speed)
-#define For_Right_A(speed) TIM_SetCompare1(TIM3, speed)
-#define For_Right_B(speed) TIM_SetCompare2(TIM3, speed)
-#define Back_Left_A(speed) TIM_SetCompare1(TIM4, speed)
-#define Back_Left_B(speed) TIM_SetCompare2(TIM4, speed)
+#define For_Left_A(speed)   TIM_SetCompare1(TIM2, speed)
+#define For_Left_B(speed)   TIM_SetCompare2(TIM2, speed)
+#define For_Right_A(speed)  TIM_SetCompare1(TIM3, speed)
+#define For_Right_B(speed)  TIM_SetCompare2(TIM3, speed)
+#define Back_Left_A(speed)  TIM_SetCompare1(TIM4, speed)
+#define Back_Left_B(speed)  TIM_SetCompare2(TIM4, speed)
 #define Back_Right_A(speed) TIM_SetCompare3(TIM3, speed)
 #define Back_Right_B(speed) TIM_SetCompare4(TIM3, speed)
-#define Hit(speed) TIM_SetCompare3(TIM4, speed)
+#define Hit(speed)          TIM_SetCompare3(TIM4, speed)
+
+#define HitSpeed(n) ((n%2 == 0)? 600 : 0)
 
 #define SPEED0 0
-
-#define Motor_Hit_Sport(speed) TIM_SetCompare3(TIM4, speed)
 
 extern u8 Motor_Start; /*电机开始阶段启动 ENABLE DISABLE*/
 
@@ -45,8 +45,8 @@ void Motor_PID_Speed(SPEED );
 /*巡线阶段调速*/
 void Motor_ROAD_Speed(SPEED , DIRECTION , DELTA );
 
-/*原地旋转90° 顺时针 or 逆时针*/
-void Motor_SPAN_90Degree(SPEED, DIRECTION );
+/*原地旋转 顺时针 or 逆时针*/
+void Motor_SPAN(SPEED, DIRECTION );
 
 /*侧向移动，ACTION4阶段*/
 void Motor_TRAN_Move(SPEED , DIRECTION );

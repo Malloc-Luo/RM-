@@ -15,7 +15,7 @@ void Init_All(void)
 	Valve_Init();
 	Brake_Init();
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);
-	SysTick_Config(SystemCoreClock/200);
+	SysTick_Config(SystemCoreClock/400);
 	SysTick_CLKSourceConfig(SysTick_CLKSource_HCLK);
 	Motor_Pause();
 }

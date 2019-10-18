@@ -4,7 +4,8 @@
 
 /*usart1 command (auto)*/
 
-#define SIGNAL1 0x01   //arduino开始对数据PID，并将数据发回stm32
+#define SIGNAL0 0x00
+#define SIGNAL1 0x01
 #define SIGNAL2 0x02
 #define SIGNAL3 0xfe
 #define SIGNAL4 0x04

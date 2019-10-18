@@ -43,6 +43,7 @@ void Bluetooth_Init(u32 bound)
 void USART2_IRQHandler(void)
 {
 	static u8 times = 0;
+	static u8 hittimes = 0;
 	
 	if(USART_GetITStatus(USART2, USART_IT_RXNE) != RESET)
 	{
@@ -51,7 +52,7 @@ void USART2_IRQHandler(void)
 		switch(Bluetooth_RX_Data)
 		{
 			case BEGIN:
-				Motor_Start = ENABLE;
+				Send_to_Arduino(SIGNAL3);
 				GAME_STATUS = 0x03;
 				break;
 			case VALVE_STATUS:
@@ -59,22 +60,23 @@ void USART2_IRQHandler(void)
 				Valve.Valve_Status = OPEN;
 				break;
 			case HIT:
-				Hit(350);
+				Hit(HitSpeed(hittimes));
+				hittimes ++;
 				break;
 			case FORWARD:
-				Motor_PID_Speed(300);
+				Motor_PID_Speed(430);
 				break;
 			case BACK:
-				Motor_PID_Speed(-300);
+				Motor_PID_Speed(-430);
 				break;
 			case TRAN_R:
-				Motor_TRAN_Move(320, RIGHT);
+				Motor_TRAN_Move(450, RIGHT);
 				break;
 			case TRAN_L:
-				Motor_TRAN_Move(320, LEFT);
+				Motor_TRAN_Move(450, LEFT);
 				break;
 			case SPAN_CLK:
-				Motor_SPAN_90Degree(300, CLOCKWISE);	
+				Motor_SPAN(450, CLOCKWISE);	
 				break;
 			case PAUSE:
 				Road.Road_Status = Road_Status_DISABLE;
@@ -82,7 +84,7 @@ void USART2_IRQHandler(void)
 				Motor_Pause();
 				break;
 			case SPAN_ANTI:
-				Motor_SPAN_90Degree(300, ANTICLOCKWISE);
+				Motor_SPAN(450, ANTICLOCKWISE);
 				break;
 			case SERVO:
 				Send_to_Arduino(ServoMode(times));

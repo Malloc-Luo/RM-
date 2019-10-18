@@ -22,7 +22,8 @@ typedef struct
 	u8 Road_Status;
 	u8 times;
 	u8 Action_Mode;
-}RoadMode;
+}
+RoadMode;
 
 /* RoadMode.Action_Mode */
 
@@ -32,6 +33,7 @@ typedef struct
 #define Action_Mode_Right_Badly 0x03
 #define Action_Mode_Left_Badly  0x04
 #define Action_Mode_End         0x05
+#define Action_Mode_Inline      0x06
 
 #define Road_Status_ENABLE  1
 #define Road_Status_DISABLE 0
@@ -41,6 +43,8 @@ extern RoadMode Road;
 void Road_Init(void);
 
 void Road_Mode(void);
+
+void Road_Mode_Span(int16_t SpanDirection, int16_t speed);
 
 #endif
 

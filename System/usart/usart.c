@@ -7,7 +7,6 @@ int16_t USART1_RX_Data;
 u8 USART1_RX_LastData;
 u8 TX_Status = 0;
 u8 RX_Status = 0;
-u8 PID_CTRL = 0;
             
 struct __FILE 
 { 
@@ -76,6 +75,11 @@ void USART1_IRQHandler(void)
 			{
 				Road.Road_Status = Road_Status_ENABLE;
 				GAME_STATUS <<=2;
+			}
+			if(USART1_RX_Data == SIGNAL2)
+			{
+				Motor_Start = ENABLE;
+				GAME_STATUS = 0x03;
 			}
 		}
 /*--------------------ACTION2-------------------------*/

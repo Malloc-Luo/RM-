@@ -20,16 +20,13 @@ void Valve_Init(void)
 
 void Valve_Control(void)
 {
-	static u8 time = 0;
 	if(Valve.Valve_Status == OFF)
 	{
-		if(time++ % 100 == 0)
-			Valve_VALVE1 = OFF;
+		Valve_VALVE1 = OFF;
 	}
 	else if(Valve.Valve_Status == ON)
 	{
-		if(time++ % 100 == 0)
-			Valve_VALVE1 = ON;
+		Valve_VALVE1 = ON;
 	}
 }
 
