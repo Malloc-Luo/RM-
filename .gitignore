@@ -10,3 +10,4 @@ Listings
 Objects
 !*.uvprojx
 !.gitignore
+!.*hex
