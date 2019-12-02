@@ -4,7 +4,7 @@
 .\objects\motor.o: ..\System\sys\sys.h
 .\objects\motor.o: ..\Project\stm32f10x.h
 .\objects\motor.o: ..\Core\core_cm3.h
-.\objects\motor.o: D:\KeilMDK5_New\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\motor.o: D:\KeilMDK5\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\motor.o: ..\Project\system_stm32f10x.h
 .\objects\motor.o: ..\Project\stm32f10x_conf.h
 .\objects\motor.o: ..\Lib\inc\stm32f10x_adc.h
@@ -31,7 +31,7 @@
 .\objects\motor.o: ..\Lib\inc\stm32f10x_usart.h
 .\objects\motor.o: ..\Lib\inc\stm32f10x_wwdg.h
 .\objects\motor.o: ..\Lib\inc\misc.h
-.\objects\motor.o: D:\KeilMDK5_New\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\motor.o: D:\KeilMDK5\ARM\ARMCC\Bin\..\include\stdio.h
 .\objects\motor.o: ..\Hardware\motor.h
 .\objects\motor.o: ..\Hardware\road.h
 .\objects\motor.o: ..\Hardware\init.h

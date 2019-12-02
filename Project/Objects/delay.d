@@ -3,7 +3,7 @@
 .\objects\delay.o: ..\System\sys\sys.h
 .\objects\delay.o: ..\Project\stm32f10x.h
 .\objects\delay.o: ..\Core\core_cm3.h
-.\objects\delay.o: D:\KeilMDK5_New\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\delay.o: D:\KeilMDK5\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\delay.o: ..\Project\system_stm32f10x.h
 .\objects\delay.o: ..\Project\stm32f10x_conf.h
 .\objects\delay.o: ..\Lib\inc\stm32f10x_adc.h

@@ -27,6 +27,7 @@
 #define SPEED0 0
 
 extern u8 Motor_Start; /*电机开始阶段启动 ENABLE DISABLE*/
+extern int16_t Delta;
 
 typedef int16_t SPEED;
 typedef int16_t DIRECTION;
@@ -40,16 +41,16 @@ void BackRight(SPEED , DIRECTION);
 void BackLeft(SPEED , DIRECTION);
 
 /*PID控制阶段调速*/
-void Motor_PID_Speed(SPEED ); 
+void Motor_PID_Speed(SPEED , DELTA ); 
 
 /*巡线阶段调速*/
 void Motor_ROAD_Speed(SPEED , DIRECTION , DELTA );
 
 /*原地旋转 顺时针 or 逆时针*/
-void Motor_SPAN(SPEED, DIRECTION );
+void Motor_SPAN(SPEED, DIRECTION , DELTA);
 
 /*侧向移动，ACTION4阶段*/
-void Motor_TRAN_Move(SPEED , DIRECTION );
+void Motor_TRAN_Move(SPEED , DIRECTION , DELTA);
 
 /*电机停止转动*/
 void Motor_Pause(void);

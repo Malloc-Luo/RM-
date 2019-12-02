@@ -14,8 +14,12 @@
 #define TRAN_R    '8'   /* to the right translation    */
 #define PAUSE     '9'   /* pause all                   */
 #define TRAN_L    '0'   /* to the left translation     */
-#define VALVE_STATUS 'a'
 #define HIT 'b'
+#define VALVE_OPEN 'a'
+#define VALVE_CLOSE 'e'
+#define STATUS1 'f'
+#define STATUS2 'g'
+#define STATUS3 'h'
 
 #define ServoMode(n) ((n%2 == 0) ? SERVOUP : SERVODOWN)
 

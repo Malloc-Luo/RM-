@@ -1,0 +1,12 @@
+*
+!*/
+!*.c
+!*.h
+!*.s
+!*.cpp
+!*.lib
+!*.txt
+Listings
+Objects
+!*.uvprojx
+!.gitignore

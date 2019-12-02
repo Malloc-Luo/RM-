@@ -2,7 +2,7 @@
 .\objects\sys.o: ..\System\sys\sys.h
 .\objects\sys.o: ..\Project\stm32f10x.h
 .\objects\sys.o: ..\Core\core_cm3.h
-.\objects\sys.o: D:\KeilMDK5_New\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\sys.o: D:\KeilMDK5\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\sys.o: ..\Project\system_stm32f10x.h
 .\objects\sys.o: ..\Project\stm32f10x_conf.h
 .\objects\sys.o: ..\Lib\inc\stm32f10x_adc.h

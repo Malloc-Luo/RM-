@@ -2,7 +2,7 @@
 .\objects\usart.o: ..\System\sys\sys.h
 .\objects\usart.o: ..\Project\stm32f10x.h
 .\objects\usart.o: ..\Core\core_cm3.h
-.\objects\usart.o: D:\KeilMDK5_New\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\usart.o: D:\KeilMDK5\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\usart.o: ..\Project\system_stm32f10x.h
 .\objects\usart.o: ..\Project\stm32f10x_conf.h
 .\objects\usart.o: ..\Lib\inc\stm32f10x_adc.h
@@ -31,7 +31,7 @@
 .\objects\usart.o: ..\Lib\inc\misc.h
 .\objects\usart.o: ..\System\usart\usart.h
 .\objects\usart.o: ..\Hardware\init.h
-.\objects\usart.o: D:\KeilMDK5_New\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\usart.o: D:\KeilMDK5\ARM\ARMCC\Bin\..\include\stdio.h
 .\objects\usart.o: ..\Hardware\motor.h
 .\objects\usart.o: ..\Hardware\init.h
 .\objects\usart.o: ..\Hardware\road.h

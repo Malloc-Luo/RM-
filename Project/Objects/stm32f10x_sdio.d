@@ -2,7 +2,7 @@
 .\objects\stm32f10x_sdio.o: ..\Lib\inc\stm32f10x_sdio.h
 .\objects\stm32f10x_sdio.o: ..\Project\stm32f10x.h
 .\objects\stm32f10x_sdio.o: ..\Core\core_cm3.h
-.\objects\stm32f10x_sdio.o: D:\KeilMDK5_New\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\stm32f10x_sdio.o: D:\KeilMDK5\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\stm32f10x_sdio.o: ..\Project\system_stm32f10x.h
 .\objects\stm32f10x_sdio.o: ..\Project\stm32f10x_conf.h
 .\objects\stm32f10x_sdio.o: ..\Lib\inc\stm32f10x_adc.h

@@ -4,7 +4,7 @@
 .\objects\brake.o: ..\System\sys\sys.h
 .\objects\brake.o: ..\Project\stm32f10x.h
 .\objects\brake.o: ..\Core\core_cm3.h
-.\objects\brake.o: D:\KeilMDK5_New\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\brake.o: D:\KeilMDK5\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\brake.o: ..\Project\system_stm32f10x.h
 .\objects\brake.o: ..\Project\stm32f10x_conf.h
 .\objects\brake.o: ..\Lib\inc\stm32f10x_adc.h
@@ -31,7 +31,7 @@
 .\objects\brake.o: ..\Lib\inc\stm32f10x_usart.h
 .\objects\brake.o: ..\Lib\inc\stm32f10x_wwdg.h
 .\objects\brake.o: ..\Lib\inc\misc.h
-.\objects\brake.o: D:\KeilMDK5_New\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\brake.o: D:\KeilMDK5\ARM\ARMCC\Bin\..\include\stdio.h
 .\objects\brake.o: ..\Hardware\motor.h
 .\objects\brake.o: ..\Hardware\init.h
 .\objects\brake.o: ..\Hardware\road.h

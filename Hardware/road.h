@@ -4,11 +4,11 @@
 
 /*    五路红外循迹        */
 /*   由左到右依次为：     */
-/*PA12 PA11 PB11 PB5 PB12*/
+/*PB14 PA11 PB11 PB5 PB12*/
 /* L1   L2   M0   R2   R1 */
 /* 保证 M0 的值为 BLACK   L1 L2 R1 R2 值位 WHITE 则小车在直线上行走 */
 
-#define L1 GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_12)
+#define L1 GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_14)
 #define L2 GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_11)
 #define M0 GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_11)
 #define R1 GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_12)

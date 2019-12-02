@@ -55,28 +55,36 @@ void USART2_IRQHandler(void)
 				Send_to_Arduino(SIGNAL3);
 				GAME_STATUS = 0x03;
 				break;
-			case VALVE_STATUS:
+			case VALVE_CLOSE:
+				Valve.Valve_EN = ENABLE;
+				Valve.Valve_Status = CLOSE;
+				Valve_Control();
+				Valve.Valve_EN = DISABLE;
+				break;
+			case VALVE_OPEN:
 				Valve.Valve_EN = ENABLE;
 				Valve.Valve_Status = OPEN;
+				Valve_Control();
+				Valve.Valve_EN = DISABLE;
 				break;
 			case HIT:
 				Hit(HitSpeed(hittimes));
 				hittimes ++;
 				break;
 			case FORWARD:
-				Motor_PID_Speed(430);
+				Motor_PID_Speed(600, Delta);
 				break;
 			case BACK:
-				Motor_PID_Speed(-430);
+				Motor_PID_Speed(-600, Delta);
 				break;
 			case TRAN_R:
-				Motor_TRAN_Move(450, RIGHT);
+				Motor_TRAN_Move(650, RIGHT, Delta);
 				break;
 			case TRAN_L:
-				Motor_TRAN_Move(450, LEFT);
+				Motor_TRAN_Move(650, LEFT, Delta);
 				break;
 			case SPAN_CLK:
-				Motor_SPAN(450, CLOCKWISE);	
+				Motor_SPAN(650, CLOCKWISE, Delta);	
 				break;
 			case PAUSE:
 				Road.Road_Status = Road_Status_DISABLE;
@@ -84,7 +92,7 @@ void USART2_IRQHandler(void)
 				Motor_Pause();
 				break;
 			case SPAN_ANTI:
-				Motor_SPAN(450, ANTICLOCKWISE);
+				Motor_SPAN(650, ANTICLOCKWISE, Delta);
 				break;
 			case SERVO:
 				Send_to_Arduino(ServoMode(times));
@@ -93,6 +101,15 @@ void USART2_IRQHandler(void)
 			case ROAD_MODE:
 				Road.Road_Status = Road_Status_ENABLE;
 				Road.times = 0 ;
+				break;
+			case STATUS1:
+				Delta = 300;
+				break;
+			case STATUS2:
+				Delta = 150;
+				break;
+			case STATUS3:
+				Delta = 0;
 				break;
 			default :
 				Motor_Pause();

@@ -2,8 +2,8 @@
 #define __VALVE_H__
 #include "init.h"
 
-#define CLOSE 0
-#define OPEN 1
+#define CLOSE 1
+#define OPEN 0
 
 /*¿ØÖÆÆø¸×µç´Å·§*/
 /*PB.4*/
@@ -17,7 +17,8 @@ typedef struct
 
 extern VALVE_SetTypeDef Valve;
 
-#define Valve_VALVE1 PBout(4)
+#define Valve_OPEN GPIO_ResetBits(GPIOB, GPIO_Pin_9)
+#define Valve_CLOSE GPIO_SetBits(GPIOB, GPIO_Pin_9)
 
 void Valve_Init(void);
 

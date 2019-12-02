@@ -9,24 +9,23 @@ void Valve_Init(void)
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);
 	
 	gpio.GPIO_Mode = GPIO_Mode_Out_PP ;
-	gpio.GPIO_Pin = GPIO_Pin_4 ;
+	gpio.GPIO_Pin = GPIO_Pin_9 ;
 	gpio.GPIO_Speed = GPIO_Speed_50MHz ;
 	GPIO_Init(GPIOB, &gpio);
 	
-	GPIO_ResetBits(GPIOB, GPIO_Pin_4);
-	Valve.Valve_EN = DISABLE ;
+	GPIO_ResetBits(GPIOB, GPIO_Pin_9);
+	Valve.Valve_EN = ENABLE ;
 	Valve.Valve_Status = OPEN ;
 }
 
 void Valve_Control(void)
 {
-	if(Valve.Valve_Status == OFF)
+	if(Valve.Valve_EN == ENABLE)
 	{
-		Valve_VALVE1 = OFF;
-	}
-	else if(Valve.Valve_Status == ON)
-	{
-		Valve_VALVE1 = ON;
+		if(Valve.Valve_Status == OPEN)
+			Valve_CLOSE;
+		else
+			Valve_OPEN;
 	}
 }
 

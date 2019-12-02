@@ -13,6 +13,7 @@
 */
 
 u8 Motor_Start;
+int16_t Delta = 0;
 
 void Motor_Init(void)
 {
@@ -146,10 +147,12 @@ void BackRight(SPEED speed, DIRECTION direction)
 /*在PID调整距离阶段使用*/
 /*这里面当speed > 0 小车反向运动
           否则，小车正向运动*/
-void Motor_PID_Speed(SPEED speed)
+void Motor_PID_Speed(SPEED speed, DELTA delta)
 {
+	
 	if(speed > 0)
 	{
+		speed -= delta;
 		ForLeft(speed, F);
 		ForRight(speed, F);
 		BackLeft(speed, F);
@@ -157,6 +160,7 @@ void Motor_PID_Speed(SPEED speed)
 	}
 	else
 	{
+		speed += delta;
 		ForLeft(-speed, B);
 		ForRight(-speed, B);
 		BackRight(-speed, B);
@@ -185,7 +189,7 @@ void Motor_ROAD_Speed(SPEED speed, DIRECTION direction, DELTA delta)
 		BackLeft(speed-delta/5, F);
 	}
 	else if(direction == CLOCKWISE || direction == ANTICLOCKWISE)
-		Motor_SPAN(speed - delta, direction);
+		Motor_SPAN(speed - delta, direction, Delta);
 	else
 	{
 		ForRight(speed-delta, F);
@@ -198,8 +202,9 @@ void Motor_ROAD_Speed(SPEED speed, DIRECTION direction, DELTA delta)
 /*原地旋转90度*/
 /*DIRECTION 参见宏定义 - CLOCKWISE - - ANTICLOCKWISE - */
 
-void Motor_SPAN(SPEED speed, DIRECTION direction)
+void Motor_SPAN(SPEED speed, DIRECTION direction, DELTA delta)
 {
+	speed -=delta;
 	if(direction == CLOCKWISE)
 	{
 		ForLeft(speed, F);
@@ -222,8 +227,9 @@ void Motor_SPAN(SPEED speed, DIRECTION direction)
 /*SPEED  - SPEED0 - -->  - SPEED8 -*/
 /*DIRECTION  - F - - B -*/
 
-void Motor_TRAN_Move(SPEED speed, DIRECTION direction)
+void Motor_TRAN_Move(SPEED speed, DIRECTION direction, DELTA delta)
 {
+	speed -= delta;
 	if(direction == LEFT)
 	{
 		ForLeft(speed, B);

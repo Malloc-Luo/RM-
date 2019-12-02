@@ -13,7 +13,15 @@ void Timer_100ms(void)
 	{
 		time ++;
 		if(time>=5)
-			Motor_PID_Speed(-280);
+			Motor_PID_Speed(-320, 0);
+		if(time>=35)
+		{
+			Motor_Pause();
+			Motor_Start = DISABLE;
+			Valve.Valve_EN = ENABLE;
+			Valve.Valve_Status = CLOSE;
+			time &= 0x00;
+		}
 	}
 }
 
@@ -94,13 +102,13 @@ void SysTick_Handler(void)
 //ÑÓÊ± 1000ms	
 	if(Valve.Valve_EN == ENABLE)
 	{
+		Valve_Control();
 		timer2 ++;
-		if(timer2 >= 400)
+		if(timer2 >= 1500)
 		{
-			Valve_Control();
-		  Valve.Valve_EN = DISABLE;
+			Valve.Valve_EN = DISABLE;
 		  Send_to_Arduino(SIGNAL1);
-			timer2 = 0;
+			timer2 &= 0x00;
 		}
 	}
 
